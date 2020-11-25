@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web;
 
 namespace TMDT.Models
 {
@@ -64,19 +67,42 @@ namespace TMDT.Models
 
     public class RegisterViewModel
     {
+        public RegisterViewModel()
+        {
+            Image = "~/Content/Images/thumbnail.png";
+        }
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email/UserName")]
         public string Email { get; set; }
+
+        [Display(Name = "Avatar")]
+        public string Image { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageUpLoad { get; set; }
+
+        [Display(Name = "Giới tính")]
+        public string Sex { get; set; }
+
+        [Display(Name = "Ngày sinh")]
+        public DateTime UserDateOfBirth { get; set; }
+
+        [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Địa chỉ là bắt buộc !")]
+        public string Address { get; set; }
+
+        [Display(Name = "Điện thoại")]
+        [Required(ErrorMessage = "Số điện thoại là bắt buộc !")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật Khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Xác nhận mật khẩu")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }

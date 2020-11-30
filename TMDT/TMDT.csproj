@@ -217,6 +217,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\add.png" />
+    <Content Include="Content\Images\thumbnail.png" />
+    <Content Include="Content\Page404\URL404.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -301,10 +304,12 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Paypal\FailureView.cshtml" />
+    <Content Include="Views\Paypal\SuccessView.cshtml" />
+    <None Include="Views\URL404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Paypal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

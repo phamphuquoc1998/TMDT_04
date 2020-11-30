@@ -1,6 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -16,6 +20,20 @@ namespace TMDT.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string Image { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageUpLoad { get; set; }
+        public override string PhoneNumber { get; set; }
+        public string Sex { get; set; }
+        public DateTime? UserDateOfBirth { get; set; }
+        public string Address { get; set; }
+        // public string Phone { get; set; }
+
+        [ForeignKey("UserId")]
+        public ICollection<Order> Order { get; set; }
+
+        [ForeignKey("UserId")]
+        public ICollection<Comment> Comment { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -24,7 +42,29 @@ namespace TMDT.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        public DbSet<Author> Author { get; set; }
+        public DbSet<Book> Book { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
+        public DbSet<Provider> Provider { get; set; }
+        public DbSet<Publisher> Publisher { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityUser>()                                          
+                                               .Ignore(c => c.AccessFailedCount)
+                                               .Ignore(c => c.LockoutEnabled)
+                                               .Ignore(c => c.LockoutEndDateUtc)
+                                               //.Ignore(c => c.PhoneNumber)
+                                               .Ignore(c => c.PhoneNumberConfirmed)
+                                               .Ignore(c => c.EmailConfirmed)
+                                               .Ignore(c => c.TwoFactorEnabled);
+        }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

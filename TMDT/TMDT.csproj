@@ -284,10 +284,13 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\BagCart.cshtml" />
+    <Content Include="Views\ShoppingCart\BagCartItem.cshtml" />
+    <Content Include="Views\ShoppingCart\ShowToCart.cshtml" />
+    <Content Include="Views\ShoppingCart\ThanhToan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

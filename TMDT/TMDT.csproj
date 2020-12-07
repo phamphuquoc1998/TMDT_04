@@ -180,6 +180,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HttpErrorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageRoleController.cs" />
     <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
     <Compile Include="Controllers\PublishersController.cs" />
@@ -189,9 +190,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MailHelper\MailHelper.cs" />
-    <Compile Include="Migrations\202011300345014__newDb.cs" />
-    <Compile Include="Migrations\202011300345014__newDb.Designer.cs">
-      <DependentUpon>202011300345014__newDb.cs</DependentUpon>
+    <Compile Include="Migrations\202012070703405__new_table.cs" />
+    <Compile Include="Migrations\202012070703405__new_table.Designer.cs">
+      <DependentUpon>202012070703405__new_table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\ViewModel\GroupedUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -208,6 +210,7 @@
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Publisher.cs" />
+    <Compile Include="Models\ViewModel\UserViewModel.cs" />
     <Compile Include="Models\Voucher.cs" />
     <Compile Include="PaypalConfigruation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -318,6 +321,7 @@
     <Content Include="Views\Paypal\FailureView.cshtml" />
     <Content Include="Views\Paypal\SuccessView.cshtml" />
     <Content Include="Views\HttpErrors\NotFound.cshtml" />
+    <Content Include="Views\ManageRole\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,8 +340,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011300345014__newDb.resx">
-      <DependentUpon>202011300345014__newDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012070703405__new_table.resx">
+      <DependentUpon>202012070703405__new_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

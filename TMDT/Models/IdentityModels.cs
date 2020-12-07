@@ -56,14 +56,14 @@ namespace TMDT.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityUser>()                                          
-                                               .Ignore(c => c.AccessFailedCount)
-                                               .Ignore(c => c.LockoutEnabled)
-                                               .Ignore(c => c.LockoutEndDateUtc)
-                                               //.Ignore(c => c.PhoneNumber)
-                                               .Ignore(c => c.PhoneNumberConfirmed)
-                                               .Ignore(c => c.EmailConfirmed)
-                                               .Ignore(c => c.TwoFactorEnabled);
+            //modelBuilder.Entity<IdentityUser>()                                          
+            //                                   .Ignore(c => c.AccessFailedCount)
+            //                                   .Ignore(c => c.LockoutEnabled)
+            //                                   .Ignore(c => c.LockoutEndDateUtc)
+            //                                   //.Ignore(c => c.PhoneNumber)
+            //                                   .Ignore(c => c.PhoneNumberConfirmed)
+            //                                   .Ignore(c => c.EmailConfirmed)
+            //                                   .Ignore(c => c.TwoFactorEnabled);
         }
         public static ApplicationDbContext Create()
         {

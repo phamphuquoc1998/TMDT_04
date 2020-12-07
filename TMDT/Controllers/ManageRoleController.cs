@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TMDT.Models;
@@ -10,34 +14,59 @@ namespace TMDT.Controllers
     public class ManageRoleController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private ApplicationUserManager _userManager;
         // GET: ManageRole
+        
         public ActionResult Index()
         {
-            var role = (from r in context.Roles where r.Name.Contains("User") select r).FirstOrDefault();
-            var users = context.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(role.Id)).ToList();
+                var usersWithRoles = (from user in context.Users
+                                      select new
+                                      {
+                                          UserId = user.Id,
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          RoleNames = (from userRole in user.Roles
+                                                       join role in context.Roles on userRole.RoleId
+                                                       equals role.Id
+                                                       select role.Name).ToList()
+                                      }).ToList().Select(p => new UserInRoleViewModel()
 
-            var userVM = users.Select(user => new UserViewModel
+                                      {
+                                          UserId = p.UserId,
+                                          Username = p.Username,
+                                          Email = p.Email,
+                                          Role = string.Join(",", p.RoleNames)
+                                      });
+           ViewBag.Roles = context.Roles.AsEnumerable();
+         
+            return View(usersWithRoles);
+            
+
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
             {
-                Username = user.UserName,
-                Email = user.Email,
-                RoleName = "User"
-            }).ToList();
-
-
-            var role2 = (from r in context.Roles where r.Name.Contains("ADMIN") select r).FirstOrDefault();
-            var admins = context.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(role2.Id)).ToList();
-
-            var adminVM = admins.Select(user => new UserViewModel
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
             {
-                Username = user.UserName,
-                Email = user.Email,
-                RoleName = "ADMIN"
-            }).ToList();
+                _userManager = value;
+            }
+        }
 
 
-            var model = new GroupedUserViewModel { Users = userVM, Admins = adminVM };
-            return View(model);
-
+        public   ActionResult Edit(string userId, string roleName)
+        {
+            var roles = context.Roles.AsEnumerable();
+            if (roleName!=null)
+            {
+                UserManager.RemoveFromRole(userId, roleName);
+            }        
+            // userManager.RemoveFromRole(userId, roleName);
+             UserManager.AddToRole(userId, "User");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

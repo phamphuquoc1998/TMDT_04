@@ -202,7 +202,6 @@
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\ViewModel\GroupedUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -210,7 +209,7 @@
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Publisher.cs" />
-    <Compile Include="Models\ViewModel\UserViewModel.cs" />
+    <Compile Include="Models\ViewModel\UserInRoleViewModel.cs" />
     <Compile Include="Models\Voucher.cs" />
     <Compile Include="PaypalConfigruation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

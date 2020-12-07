@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace TMDT.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+      
         public AccountController()
         {
         }
@@ -151,12 +152,34 @@ namespace TMDT.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+
+
+                if (model.ImageUpLoad != null)
+                {
+                    string fileNameImg = Path.GetFileNameWithoutExtension(model.ImageUpLoad.FileName);
+                    string extension = Path.GetExtension(model.ImageUpLoad.FileName);
+                    fileNameImg = fileNameImg + extension;
+                    model.Image = "~/Content/Images/" + fileNameImg;
+                    model.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));
+
+                }
+
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = model.Email,
+                    Address = model.Address,
+                    Sex = model.Sex,
+                    UserDateOfBirth = model.UserDateOfBirth,
+                    Image = model.Image,
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    UserManager.AddToRole(user.Id, "User");
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

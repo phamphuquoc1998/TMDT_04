@@ -3,63 +3,66 @@
 @{
     ViewBag.Title = "Users With Roles";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="box-title">
-            <b>Users with Roles</b>
-        </h3>
-    </div>
-    <!-- /.box-header -->
-    <div class="panel-body">
-        <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
-            <thead>
-                <tr>
-                    <td><b>Username</b></td>
-                    <td><b>Email</b></td>
-                    <td><b>Roles</b></td>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="box-title">
+                <b>Users with Roles</b>
+            </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="panel-body">
+            <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
+                <thead>
+                    <tr>
+                        <td><b>Tên người dùng</b></td>
+                        <td><b>Email</b></td>
+                        <td><b>Quyền hiện tại</b></td>
+                        <td><b>Chọn quyền để thay đổi</b></td>
+                    </tr>
+                </thead>
+                @foreach (var user in Model)
+                {
+
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>
+                    @user.Role
+
+                </td>  @using (Html.BeginForm("Edit", "ManageRole", FormMethod.Post))
+                {
+
+                    <td>
+
+                        <input hidden="hidden" value=@user.UserId name="userId" id="userId" />
+                        <select class="form-control form-group-sm" name="roleName" id="roleName">
+                            @foreach (var item in ViewBag.Roles)
+                            {
+                                <option value=@item.Name>@item.Name</option>
+                            }
+                        </select>
+                       
+                       
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Sửa</button>
+
+                    </td> }
                 </tr>
-            </thead>
-            @foreach (var user in Model)
-            {
-        <tr>
 
-            <td>@user.Username</td>
-            <td>@user.Email</td>
-           
-            <td>
-                @user.Role
-                <select  name="test">
-                    @foreach (var item in ViewBag.Roles)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </td>
-            @if (User.Identity.Name == @user.Username)
-            {
-                <td>
-                    user is Authorize
-                </td>
-            }
-            else
-            {
-                <td>
-                    @Html.ActionLink("Edit Role", "Edit", new { userId = user.UserId, roleName = user.Role })
-                </td>
-            }
+                }
+            </table>
+        </div>
 
-        </tr>
-
-            }
-        </table>
-    </div>
-
-    <div class="panel-footer">
-        <p class="box-title"><b>Total Users till @String.Format("{0 : dddd, MMMM d, yyyy}", DateTime.Now)  : </b><span class="label label-primary">@Model.Count()</span></p>
-    </div>
-</div>
+        <!-- Modal -->  
+      
+            <div class="panel-footer">
+                <p class="box-title"><b>Total Users till @String.Format("{0 : dddd, MMMM d, yyyy}", DateTime.Now)  : </b><span class="label label-primary">@Model.Count()</span></p>
+            </div>
+        </div>
 
 
 @section scripts{

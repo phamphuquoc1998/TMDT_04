@@ -57,15 +57,22 @@ namespace TMDT.Controllers
         }
 
 
-        public   ActionResult Edit(string userId, string roleName)
+        [HttpPost]
+        public ActionResult Edit(FormCollection formCollection)
         {
-            var roles = context.Roles.AsEnumerable();
-            if (roleName!=null)
+
+            string roleName = formCollection["roleName"];
+            string userId = formCollection["userId"];
+
+            string currentRole = UserManager.GetRoles(userId).First();
+
+            var roles =  context.Roles.AsEnumerable();
+            if (currentRole != null)
             {
-                UserManager.RemoveFromRole(userId, roleName);
+                UserManager.RemoveFromRole(userId, currentRole);
             }        
             // userManager.RemoveFromRole(userId, roleName);
-             UserManager.AddToRole(userId, "User");
+             UserManager.AddToRole(userId, roleName);
             return RedirectToAction(nameof(Index));
         }
     }

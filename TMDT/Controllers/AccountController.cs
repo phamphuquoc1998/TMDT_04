@@ -19,8 +19,10 @@ namespace TMDT.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
       
+        
         public AccountController()
         {
+
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -80,7 +82,9 @@ namespace TMDT.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                
                     return RedirectToLocal(returnUrl);
+                  
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -152,9 +156,7 @@ namespace TMDT.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
-
+                
                 if (model.ImageUpLoad != null)
                 {
                     string fileNameImg = Path.GetFileNameWithoutExtension(model.ImageUpLoad.FileName);
@@ -162,7 +164,6 @@ namespace TMDT.Controllers
                     fileNameImg = fileNameImg + extension;
                     model.Image = "~/Content/Images/" + fileNameImg;
                     model.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));
-
                 }
 
                 var user = new ApplicationUser
@@ -175,6 +176,8 @@ namespace TMDT.Controllers
                     UserDateOfBirth = model.UserDateOfBirth,
                     Image = model.Image,
                 };
+
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

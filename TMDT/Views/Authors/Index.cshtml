@@ -2,20 +2,19 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
+<button class="btn btn-sm btn-warning">
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+</button>
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.AuthorName)
         </th>
-        <th></th>
+        <th>Công cụ</th>
     </tr>
 
 @foreach (var item in Model) {

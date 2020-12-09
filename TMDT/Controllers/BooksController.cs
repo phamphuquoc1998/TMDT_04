@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,13 +52,21 @@ namespace TMDT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookID,BookName,BookPrice,BookDescription,PublisherDate,Image,AuthorID,PublisherID,ProviderID,CateID")] Book book)
+        public ActionResult Create(Book book)
         {
             if (ModelState.IsValid)
             {
+                if (book.ImageUpLoad != null)
+                {
+                    string fileNameImg = Path.GetFileNameWithoutExtension(book.ImageUpLoad.FileName);
+                    string extension = Path.GetExtension(book.ImageUpLoad.FileName);
+                    fileNameImg = fileNameImg + extension;
+                    book.Image = "~/Content/Images/" + fileNameImg;
+                    book.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));
+                }
                 db.Book.Add(book);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
 
             ViewBag.AuthorID = new SelectList(db.Author, "AuthorID", "AuthorName", book.AuthorID);
@@ -132,6 +141,29 @@ namespace TMDT.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SearchTenSach(string tenSach)
+        {
+            var tenSachs = from m in db.Book select m;
+
+            if (!String.IsNullOrEmpty(tenSach))
+            {
+                tenSachs = tenSachs.Where(s => s.BookName.Contains(tenSach));
+            }
+            else
+            {
+                return RedirectToAction("Index", "Books");
+            }
+
+            return View("Index", tenSachs);
+
+        }
+        public ActionResult LoadSachTheoDanhMuc(string name)
+        {
+            var ten_loai = name;
+            var tenDanhMuc = db.Book.Where(m => m.Category.CateName == ten_loai);
+            return View("Index", tenDanhMuc.ToList());
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -11,9 +11,10 @@ using TMDT.Models;
 
 namespace TMDT.Controllers
 {
+  [Authorize(Roles = "ADMIN")]
     public class ManageRoleController : Controller
     {
-        private ApplicationDbContext context = new ApplicationDbContext();
+        private static ApplicationDbContext context = new ApplicationDbContext();
         private ApplicationUserManager _userManager;
         // GET: ManageRole
         

@@ -2,5 +2,13 @@
   {
     "outputFile": "Content/Site.css",
     "inputFile": "Content/Site.scss"
+  },
+  {
+    "outputFile": "Content/LayoutAdmin/LayoutAdminStyles.css",
+    "inputFile": "Content/LayoutAdmin/LayoutAdminStyles.scss"
+  },
+  {
+    "outputFile": "Content/LayoutAdminStyles.css",
+    "inputFile": "Content/LayoutAdminStyles.scss"
   }
 ]

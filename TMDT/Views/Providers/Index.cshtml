@@ -2,14 +2,13 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <button class="btn btn-success btn-sm">
+        @Html.ActionLink("Create New", "Create")
+    </button>
 <table class="table">
     <tr>
         <th>

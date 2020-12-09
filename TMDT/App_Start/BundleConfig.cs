@@ -22,9 +22,15 @@ namespace TMDT
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/Site").Include(
                       "~/Content/bootstrap.css",
+                       "~/Content/Site.css",                      
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/LayoutAdminStyles").Include(
+                   "~/Content/bootstrap.css",               
+                    "~/Content/LayoutAdminStyles.css"
+                 
+                  ));
         }
     }
 }

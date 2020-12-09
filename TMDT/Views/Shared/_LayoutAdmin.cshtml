@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+   
+    @Styles.Render("~/Content/LayoutAdminStyles")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>   
+    <div class="container body-content">
+        <div class="div_sroll_wrapper">
+            <div class="scrolltop-wrap">
+                <a href="#" role="button" aria-label="Scroll to top" style="height:60px !important; width:60px !important;">
+                    <svg viewBox="0 0 48 48" width="60px" height="60px">
+                        <path id="scrolltop-bg" d="M0 0h48v48h-48z"></path>
+                        <path id="scrolltop-arrow" d="M14.83 30.83l9.17-9.17 9.17 9.17 2.83-2.83-12-12-12 12z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="nav-side">
+            <nav class="sidenav" id="sidenav">
+                <div class="navbrand">
+                    @Html.Partial("_LoginPartial")   
+                  
+                    <h2 class="title title-medium">@User.Identity.Name</h2>
+                </div>
+                <ul class="navmenu">
+                    <li class="navmenu-item"><a href="/role" class="navmenu-link">Role</a></li>
+                    <li class="navmenu-item"><a href="/Books" class="navmenu-link">Book</a></li>
+                    <li class="navmenu-item"><a href="/Categories" class="navmenu-link">Categories</a></li>
+                    <li class="navmenu-item"><a href="/Authors" class="navmenu-link">Authors</a></li>
+                    <li class="navmenu-item"><a href="/Providers" class="navmenu-link">Providers</a></li>
+                    <li class="navmenu-item"><a href="/Providers" class="navmenu-link">Providers</a></li>
+                    <li class="navmenu-item"><a href="/Publishers" class="navmenu-link">Publishers</a></li>
+                    <li class="navmenu-item"><a href="/ManageRole" class="navmenu-link">Manage Role</a></li>
+                    <li class="navmenu-item"><a href="/Order" class="navmenu-link">Order</a></li>
+                </ul>
+                <div class="navinfo">
+                    <div class="social">
+                        <a href="#" class="social-item"><i class="ion-logo-youtube"></i></a>
+                        <a href="#" class="social-item"><i class="ion-logo-twitter"></i></a>
+                        <a href="#" class="social-item"><i class="ion-logo-instagram"></i></a>
+                        <a href="#" class="social-item"><i class="ion-logo-linkedin"></i></a>
+                        <a href="#" class="social-item"><i class="ion-logo-github"></i></a>
+                    </div>
+                    <div class="attrib">
+                         <a class="btn btn-group-justified" href="javascript:document.getElementById('logoutForm').submit()">Log off &nbsp;<span class="glyphicon glyphicon-log-out"></span></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Main -->
+            <header class="header">
+                <div class="burgermenu" id="burgermenu">
+                    <span class="burgermenu-open" id="openmenu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="16">
+                            <g fill="#252a32" fill-rule="evenodd">
+                                <path d="M0 0h24v2H0zM0 7h24v2H0zM0 14h24v2H0z" />
+                            </g>
+                        </svg>
+                    </span>
+                    <span class="burgermenu-close" id="closemenu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                            <path fill="#ffffff" fill-rule="evenodd" d="M17.778.808l1.414 1.414L11.414 10l7.778 7.778-1.414 1.414L10 11.414l-7.778 7.778-1.414-1.414L8.586 10 .808 2.222 2.222.808 10 8.586 17.778.808z" />
+                        </svg>
+                    </span>
+                </div>
+            </header>
+        </div>
+        
+        @RenderBody()
+
+
+
+
+    </div>
+    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/ChangeImg.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

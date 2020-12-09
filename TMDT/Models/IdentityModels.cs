@@ -20,7 +20,7 @@ namespace TMDT.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public string Image { get; set; }
+        public  string Image { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageUpLoad { get; set; }
         public override string PhoneNumber { get; set; }

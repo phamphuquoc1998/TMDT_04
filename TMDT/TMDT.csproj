@@ -49,6 +49,12 @@
       <HintPath>packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <HintPath>packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
     </Reference>
@@ -186,6 +192,7 @@
     <Compile Include="Controllers\PublishersController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\ShowImgCurrentUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,6 +216,7 @@
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Publisher.cs" />
+    <Compile Include="Models\ViewModel\UserImageVM.cs" />
     <Compile Include="Models\ViewModel\UserInRoleViewModel.cs" />
     <Compile Include="Models\Voucher.cs" />
     <Compile Include="PaypalConfigruation.cs" />
@@ -222,7 +230,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\add.png" />
     <Content Include="Content\Images\thumbnail.png" />
+    <Content Include="Content\LayoutAdminStyles.css">
+      <DependentUpon>LayoutAdminStyles.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\LayoutAdminStyles.min.css">
+      <DependentUpon>LayoutAdminStyles.css</DependentUpon>
+    </Content>
     <Content Include="Content\Page404\URL404.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
@@ -232,15 +247,18 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="App_Code\GlyphIcon.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\LayoutAdminStyles.scss" />
     <None Include="Content\Site.scss" />
     <Content Include="MailHelper\SendMailOrder.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\ChangeImg.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -321,6 +339,8 @@
     <Content Include="Views\Paypal\SuccessView.cshtml" />
     <Content Include="Views\HttpErrors\NotFound.cshtml" />
     <Content Include="Views\ManageRole\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\ShowImgCurrentUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

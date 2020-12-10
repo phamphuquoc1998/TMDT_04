@@ -326,19 +326,17 @@ namespace TMDT.Controllers
 
         [HttpPost]
       
-        public ActionResult EditAvatar(string ImageUpload)
-        {
-            
-            string fileNameImg = Path.GetFileNameWithoutExtension(ImageUpload);
-            string extension = Path.GetExtension(ImageUpload);
-            fileNameImg = fileNameImg + extension;
-          
+        public ActionResult EditAvatar(HttpPostedFileBase ImageUpload)
+        {               
             var user = UserManager.FindById(User.Identity.GetUserId());
-           
-            if (user != null &&  user.ImageUpLoad != null)
+            string fileNameImg = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
+            string extension = Path.GetExtension(ImageUpload.FileName);
+            fileNameImg = fileNameImg + extension;        
+            if (user != null && ImageUpload != null && ImageUpload.ContentLength > 0)
             {
+               // string filePath = Path.Combine(Server.MapPath("~/Content/Images/"), Path.GetFileName(ImageUpload.FileName));
                 user.Image = "~/Content/Images/" + fileNameImg;
-                user.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));
+                ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));                               
                 UserManager.Update(user);
             }
                 

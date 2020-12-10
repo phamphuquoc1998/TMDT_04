@@ -83,5 +83,17 @@
                     }
                 }*@
         </dd>
+        <dt>Change avatar</dt>
+        <dd>
+            @using (Html.BeginForm("EditAvatar", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div class="col-md-5">
+                    <img src="~/Content/Images/thumbnail.png" style="height:50px ;width:50px;" id="prev" />
+                    <input type="file" name="ImageUpload" onchange="ShowImgPrev(this,document.getElementById('prev'))" />
+                    <button class="btn btn-block" type="submit">Submit</button>
+                </div>
+            }
+        </dd>
     </dl>
 </div>

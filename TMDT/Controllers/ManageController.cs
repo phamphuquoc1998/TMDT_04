@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,6 +14,7 @@ namespace TMDT.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -321,6 +323,28 @@ namespace TMDT.Controllers
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
+
+        [HttpPost]
+      
+        public ActionResult EditAvatar(string ImageUpload)
+        {
+            
+            string fileNameImg = Path.GetFileNameWithoutExtension(ImageUpload);
+            string extension = Path.GetExtension(ImageUpload);
+            fileNameImg = fileNameImg + extension;
+          
+            var user = UserManager.FindById(User.Identity.GetUserId());
+           
+            if (user != null &&  user.ImageUpLoad != null)
+            {
+                user.Image = "~/Content/Images/" + fileNameImg;
+                user.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));
+                UserManager.Update(user);
+            }
+                
+            return RedirectToAction("Index", "Manage");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

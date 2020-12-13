@@ -2,12 +2,22 @@
 
 @{
     ViewBag.Title = "Details";
+<<<<<<< Updated upstream
       Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+=======
+    Layout = "~/Views/Shared/_Layout.cshtml";
+>>>>>>> Stashed changes
 }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 
+@*<div>
 
-<div>
-   
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Author.AuthorName)
@@ -86,4 +96,83 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.BookID }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
+
+<h3 style="margin-left:25px"> Thông tin chi tiết sách</h3>
+<div class="row m-3">
+    <div class="col-3">
+        <img src="~/BookImage/@Model.Image" style="width:80%" />
+    </div>
+    <div class="col-6">
+
+            <h2>@Model.BookName</h2>
+            <h4>@String.Format("{0:n0}", Model.BookPrice) VNĐ</h4>
+            <!-- Form đặt sách sách vào giỏ hàng -->
+            <hr style="border-bottom: 1px solid #337ab7;" />
+            <form action="~/Cart/AddItemToCart" class="form-inline" method="post">
+                <h4 class="mt-1">Số lượng</h4>
+                <div class="form-group m-2">
+                    <input type="hidden" name="BookID" value=@Model.BookID />
+                    <input type="number" class="form-control" value="1" name="Quantity" style="width: 30%">
+                </div>
+                @*@if (Model.Inventory != 0)
+                {
+                    <button type="submit" class="btn btn-primary m-2">Đặt mua</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary m-2" disabled>Hết hàng</button>
+                }*@
+            </form>
+
+            <hr style="border-bottom: 1px solid #337ab7;" />
+            <h6>Tóm tắt nội dung:</h6>
+            <p>@Model.BookDescription</p>
+        
+    </div>
+    <div class="col-2" style=" border:1px double #333;background-color:white">
+        <h4 style="border-bottom:double">Các thông tin thêm</h4>
+        <p>Tên nhà cung cấp : <a href="~/Book/Publisher/@Model.PublisherID" style="text-decoration:none">@Model.Publisher.PublisherName </a></p>
+        <p>Tên tác giả : <a href="~/Book/Author/@Model.AuthorID" style="text-decoration:none"> @Model.Author.AuthorName</a></p>
+    </div>
+</div>
+
+<!-- Bình luận sách -->
+<h3 style="margin-left:25px">Bình Luận</h3>
+<div class="row m-3">
+    <div class="col-12">
+        <!-- Kiểm tra đăng nhập-->
+        @if (Session["User"] != null)
+        {
+            <form action="~/Comment/AddComment" method="post">
+                <label>Bình luận về sản phẩm này :</label>
+                <div class="form-group m-2">
+                    <input type="hidden" name="BookID" value=@Model.BookID />
+                    <textarea class="form-control" name="Content" rows="3" style="width: 50%"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary m-2">Bình luận</button>
+            </form>
+        }
+        else
+        {
+            <p style="color: red">Hãy đăng nhập để bình luận</p>
+        }
+    </div>
+</div>
+
+<div class="row m-3">
+    <div class="col-12">
+        <h5>Các bình luận</h5>
+        <!-- Danh sách tất cả bình luận-->
+        @if (ViewBag.ListComment != null)
+        {
+            foreach (var item in ViewBag.ListComment)
+            {
+                <div style="background-color: azure; width: 50%" class="p-3 mt-3 rounded">
+                    <p><b>@item.FKUser.UserName </b>(<small>@item.Time</small>)</p>
+                    <p>@item.Content</p>
+                </div>
+            }
+        }
+    </div>
+</div>

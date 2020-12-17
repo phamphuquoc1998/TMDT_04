@@ -16,7 +16,7 @@ namespace TMDT.Models
         [Display(Name = "Sách")]
         [ForeignKey("Book")]
         public int BookID { get; set; }
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
 
         [Display(Name = "Số lượng")]
         public int Quantity { get; set; }

@@ -15,6 +15,7 @@ namespace TMDT.Controllers
         // GET: Orders
         public ActionResult Index()
         {
+
             return View(db.Order.ToList());
         }
 
@@ -30,9 +31,16 @@ namespace TMDT.Controllers
             {
                 return HttpNotFound();
             }
+            var orderDetail = (from m in db.OrderDetail where m.OrderID == id select m).ToList();
+            var userrOrderId = orderDetail.FirstOrDefault().Order.UserId.ToString();
+            var userOrderDetail = db.Users.FirstOrDefault(x => x.Id == userrOrderId);
 
+            ViewBag.name = orderDetail.FirstOrDefault().Order.NameRec;
+            ViewBag.email = userOrderDetail.Email;
+            ViewBag.address = userOrderDetail.Address;
+            ViewBag.phone = userOrderDetail.PhoneNumber;
 
-            return View(order);
+            return View(orderDetail);
         }
 
         // GET: Orders/Create

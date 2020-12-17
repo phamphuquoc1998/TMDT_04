@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TMDT.Models;
 
@@ -111,6 +109,11 @@ namespace TMDT.Controllers
                 return View();
             }
             Cart cart = Session["Cart"] as Cart;
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            ViewBag.CurrentPhone = currentUser.PhoneNumber;
+            ViewBag.CurrentAddress = currentUser.Address;
+
             if (cart.Items.Count() == 0)
             {
                 ViewBag.nullCart = "Giỏ hàng trống...!";
@@ -160,7 +163,7 @@ namespace TMDT.Controllers
                 new MailHelper.MailHelper().SendMail(currentUser.Email, "Đơn hàng mới từ Shop A", content);
                 new MailHelper.MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop A", content);
 
-                _order.SubTotal = total;
+                //  _order.SubTotal = total;
                 _db.Order.Add(_order);
                 _db.SaveChanges();
                 cart.ClearCart();

@@ -17,7 +17,7 @@ namespace TMDT.Controllers
         {
             string currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            if (currentUser.Image!= null && currentUser.Image.StartsWith("~"))
+            if (currentUser !=null&&currentUser.Image!= null && currentUser.Image.StartsWith("~"))
             {
                 currentUser.Image = currentUser.Image.Replace("~", "");
                 ViewBag.Img = currentUser.Image;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace TMDT.Models
 {
@@ -11,16 +9,25 @@ namespace TMDT.Models
         [Key]
         public int OrderID { get; set; }
 
-        [Display(Name = "Khách hàng")]
+
         public string UserId { get; set; }
+
+        [Display(Name = "Khách hàng")]
+        public string NameRec { get; set; }
+
+        [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Địa chỉ là bắt buộc !")]
+        public string AddressOrder { get; set; }
+
+        [Display(Name = "Số điện thoại")]
+        [Required(ErrorMessage = "Số điện thoại là bắt buộc là bắt buộc !")]
+        public string PhoneOrder { get; set; }
 
         [Display(Name = "Ngày order")]
         [Required(ErrorMessage = "Ngày order là bắt buộc !")]
         public DateTime OrderDate { get; set; }
 
-
-        [Display(Name = "Tổng")]
-        public float? SubTotal { get; set; }
+        public ICollection<OrderDetail> OrderDetail { get; set; }
 
     }
 }

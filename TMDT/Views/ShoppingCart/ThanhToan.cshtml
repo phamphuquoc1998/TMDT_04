@@ -1,68 +1,85 @@
-﻿@model TMDT.Models.Cart
-@{ ViewBag.Title = "ThanhToan";
+﻿                @model TMDT.Models.Cart
+                @{ ViewBag.Title = "ThanhToan";
                 Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-@if (Model != null)
-{
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                Tên
-            </th>
-            <th>
+                @if (Model != null)
+                {
+                using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {@Html.AntiForgeryToken()
+                <label class="control-label">Nhập thông tin người nhận</label>
+                <input id="userName" name="userName" class="form-control" type="text" value="@User.Identity.Name" placeholder="Nhập tên người nhận" />
+                <input id="phoneNumber" name="phoneNumber" class="form-control" type="tel" value="@ViewBag.CurrentPhone" placeholder="Nhập số điện thoại" />
+                <input id="addressShip" name="addressShip" class="form-control" type="text" value="@ViewBag.CurrentAddress" placeholder="Nhập địa chỉ" />
+                <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>
                 Hình ảnh
-            </th>
-            <th>
+                </th>
+                <th>
+                Tên
+                </th>
+
+                <th>
                 Giá
-            </th>
-            <th>
+                </th>
+                <th>
                 Số lượng
-            </th>
-            <th>
+                </th>
+                <th>
                 Tổng
-            </th>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Items)
+                {
+                double total = Convert.ToDouble(item._shopping_product.BookPrice * item._shopping_quantity);
+                <tr>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
-            double total = Convert.ToDouble(item._shopping_product.BookPrice * item._shopping_quantity);
-<tr>
-    <td>
-        @Html.DisplayFor(model => item._shopping_product.BookName)
-    </td>
-    <td>
-        <img src="@Url.Content(item._shopping_product.Image)" style="width:40px; height:40px;" />
-    </td>
-    <td>
-        @Html.DisplayFor(model => item._shopping_product.BookPrice)&#36;
-    </td>
-    <td>
-        <input type="number" disabled value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" />
-    </td>
-    <td>
-        @total.ToString("N0")&#36;
-
-    </td>
-
-</tr>}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="5">
+                <td>
+                <img src="@Url.Content(item._shopping_product.Image)" style="width:40px; height:40px;" />
+                </td>
+                <td>
+                @Html.DisplayFor(model => item._shopping_product.BookName)
+                </td>
+                <td>
+                @Html.DisplayFor(model => item._shopping_product.BookPrice)&#36;
+                </td>
+                <td>
+                <input type="number" disabled value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" />
+                </td>
+                <td>
+                @total.ToString("N0")&#36;
+                </td>
+                </tr>
+                }
+                </tbody>
+                <tfoot>
+                <tr>
+                <td colspan="5">
                 Tổng cộng: @Model.Total_Money().ToString("N0")&#36;
-            </td>
-        </tr>
-    </tfoot>
+                </td>
+                </tr>
+                </tfoot>
 
-</table>
+                </table>
                 <div>
-                    @Html.ActionLink("Ship code", "CheckOut", "ShoppingCart", new { @class = "btn btn-info" })
-                    <a href=" @Url.Action( "PaymentWithPaypal", "Paypal")" class="btn btn-primary">Thanh toán bằng Tài khoản PayPal</a>
-                    <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
-                </div> }
-                            else
-                            { < div > @ViewBag.nullCart </ div >}
+                <input class="radio-inline" type="radio" id="shipCode" name="thanhToan" value="1"
+                checked>
+                <label for="shipCode">Thanh toán khi nhận hàng</label>
+                <br />
+                <input class="radio-inline" type="radio" id="online" name="thanhToan" value="2">
+                <label for="online">Thanh toán online</label>
+                @*@Html.ActionLink("Ship code", "CheckOut", "ShoppingCart", new { @class = "btn btn-info" })
+                <a href=" @Url.Action("PaymentWithPaypal", "Paypal")" class="btn btn-primary">Thanh toán bằng Tài khoản PayPal</a>*@
+                <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
+                </div>
+                <input type="submit" value="ok" />
+                }
 
+                }
+
+                else
+                {
+                @ViewBag.nullCart}

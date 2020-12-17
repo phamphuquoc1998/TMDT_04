@@ -4,6 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TMDT.Models
 {
+    public enum StatusEnum
+    {
+        WAIT, CONFIRMED, TRANSPORTED, DELIVERED, CANCLED
+    }
+
     public class Order
     {
         [Key]
@@ -26,6 +31,13 @@ namespace TMDT.Models
         [Display(Name = "Ngày order")]
         [Required(ErrorMessage = "Ngày order là bắt buộc !")]
         public DateTime OrderDate { get; set; }
+
+
+        [Display(Name = "Trạng thái")]
+        public StatusEnum Status { get; set; }
+
+        [Display(Name = "Hình thức thanh toán")]
+        public string Payment { get; set; }
 
         public ICollection<OrderDetail> OrderDetail { get; set; }
 

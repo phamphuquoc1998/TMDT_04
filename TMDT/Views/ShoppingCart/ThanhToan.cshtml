@@ -7,9 +7,9 @@
                 using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
                 {@Html.AntiForgeryToken()
                 <label class="control-label">Nhập thông tin người nhận</label>
-                <input id="userName" name="userName" class="form-control" type="text" value="@User.Identity.Name" placeholder="Nhập tên người nhận" />
-                <input id="phoneNumber" name="phoneNumber" class="form-control" type="tel" value="@ViewBag.CurrentPhone" placeholder="Nhập số điện thoại" />
-                <input id="addressShip" name="addressShip" class="form-control" type="text" value="@ViewBag.CurrentAddress" placeholder="Nhập địa chỉ" />
+                <input id="userName" name="userName" required class="form-control" type="text" value="@User.Identity.Name" placeholder="Nhập tên người nhận" />
+                <input id="phoneNumber" name="phoneNumber" required class="form-control" type="tel" value="@ViewBag.CurrentPhone" placeholder="Nhập số điện thoại" />
+                <input id="addressShip" name="addressShip" required class="form-control" type="text" value="@ViewBag.CurrentAddress" placeholder="Nhập địa chỉ" />
                 <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -65,17 +65,17 @@
 
                 </table>
                 <div>
-                <input class="radio-inline" type="radio" id="shipCode" name="thanhToan" value="1"
+                <input class="radio-inline" type="radio" id="shipCode" name="payment" value=0
                 checked>
                 <label for="shipCode">Thanh toán khi nhận hàng</label>
                 <br />
-                <input class="radio-inline" type="radio" id="online" name="thanhToan" value="2">
+                <input class="radio-inline" type="radio" id="online" name="payment" value=1>
                 <label for="online">Thanh toán online</label>
                 @*@Html.ActionLink("Ship code", "CheckOut", "ShoppingCart", new { @class = "btn btn-info" })
                 <a href=" @Url.Action("PaymentWithPaypal", "Paypal")" class="btn btn-primary">Thanh toán bằng Tài khoản PayPal</a>*@
                 <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
                 </div>
-                <input type="submit" value="ok" />
+                <input class="btn btn-success" type="submit" value="Thanh Toán" />
                 }
 
                 }

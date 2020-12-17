@@ -198,9 +198,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MailHelper\MailHelper.cs" />
-    <Compile Include="Migrations\202012170935353_neworder.cs" />
-    <Compile Include="Migrations\202012170935353_neworder.Designer.cs">
-      <DependentUpon>202012170935353_neworder.cs</DependentUpon>
+    <Compile Include="Migrations\202012171439219_payment_order.cs" />
+    <Compile Include="Migrations\202012171439219_payment_order.Designer.cs">
+      <DependentUpon>202012171439219_payment_order.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -343,9 +343,11 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\ShowImgCurrentUser\Index.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\DetailOfUser.cshtml" />
+    <Content Include="Views\Orders\ListOrderOfUser.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -364,8 +366,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012170935353_neworder.resx">
-      <DependentUpon>202012170935353_neworder.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012171439219_payment_order.resx">
+      <DependentUpon>202012171439219_payment_order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

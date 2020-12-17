@@ -1,18 +1,13 @@
 ﻿@model IEnumerable<TMDT.Models.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ListOrderOfUser";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
-
-
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NameRec)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.AddressOrder)
         </th>
@@ -33,9 +28,6 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.NameRec)
-    </td>
-    <td>
         @Html.DisplayFor(modelItem => item.AddressOrder)
     </td>
     <td>
@@ -51,9 +43,7 @@
         @Html.DisplayFor(modelItem => item.Status)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+        @Html.ActionLink("Details", "DetailOfUser", new { id = item.OrderID })
     </td>
 </tr>
 }

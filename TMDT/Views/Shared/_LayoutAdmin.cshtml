@@ -4,12 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-   
+    <link rel="icon" href="~/Content/Images/logo.png" type="image/gif" sizes="16x16">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @Styles.Render("~/Content/LayoutAdminStyles")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>   
+<body>
     <div class="container body-content">
         <div class="div_sroll_wrapper">
             <div class="scrolltop-wrap">
@@ -24,8 +26,8 @@
         <div class="nav-side">
             <nav class="sidenav" id="sidenav">
                 <div class="navbrand">
-                    @Html.Partial("_LoginPartial")   
-                  
+                    @Html.Partial("_LoginPartial")
+
                     <h2 class="title title-medium">@User.Identity.Name</h2>
                 </div>
                 <ul class="navmenu">
@@ -37,7 +39,7 @@
                     <li class="navmenu-item"><a href="/Providers" class="navmenu-link">Providers</a></li>
                     <li class="navmenu-item"><a href="/Publishers" class="navmenu-link">Publishers</a></li>
                     <li class="navmenu-item"><a href="/ManageRole" class="navmenu-link">Manage Role</a></li>
-                    <li class="navmenu-item"><a href="/Order" class="navmenu-link">Order</a></li>
+                    <li class="navmenu-item"><a href="/Orders" class="navmenu-link">Orders</a></li>
                 </ul>
                 <div class="navinfo">
                     <div class="social">
@@ -48,7 +50,7 @@
                         <a href="#" class="social-item"><i class="ion-logo-github"></i></a>
                     </div>
                     <div class="attrib">
-                         <a class="btn btn-group-justified" href="javascript:document.getElementById('logoutForm').submit()">Log off &nbsp;<span class="glyphicon glyphicon-log-out"></span></a>
+                        <a class="btn btn-group-justified" href="javascript:document.getElementById('logoutForm').submit()">Log off &nbsp;<span class="glyphicon glyphicon-log-out"></span></a>
                     </div>
                 </div>
             </nav>
@@ -70,18 +72,19 @@
                 </div>
             </header>
         </div>
-        
+
         @RenderBody()
 
 
 
 
     </div>
-    
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/ChangeImg.js"></script>
+    <script src="~/Scripts/ajaxFilter.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>

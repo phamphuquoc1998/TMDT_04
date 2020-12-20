@@ -230,6 +230,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\add.png" />
+    <Content Include="Content\Images\logo.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\thumbnail.png" />
     <Content Include="Content\LayoutAdminStyles.css">
       <DependentUpon>LayoutAdminStyles.scss</DependentUpon>
@@ -256,6 +258,7 @@
     <Content Include="Content\LayoutAdminStyles.scss" />
     <None Include="Content\Site.scss" />
     <Content Include="MailHelper\SendMailOrder.html" />
+    <Content Include="Scripts\ajaxFilter.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

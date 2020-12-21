@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-
 using TMDT.Mail;
 using TMDT.Models;
+using TMDT.Payment;
+
 namespace TMDT.Controllers
 {
     public class OrdersController : Controller
@@ -83,6 +85,7 @@ namespace TMDT.Controllers
         // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string userName, string phoneNumber, string addressShip, int payment)
@@ -111,32 +114,33 @@ namespace TMDT.Controllers
                 DateTime currentDate = DateTime.Now;
                 order.OrderDate = currentDate;
                 db.Order.Add(order);
-
+                float total = 0;
                 Cart cart = Session["Cart"] as Cart;
                 foreach (var item in cart.Items)
                 {
+
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.OrderID = order.OrderID;
                     orderDetail.BookID = item._shopping_product.BookID;
                     orderDetail.UnitPriceSale = item._shopping_product.BookPrice;
                     orderDetail.Quantity = item._shopping_quantity;
+                    total += item._shopping_quantity * item._shopping_product.BookPrice;
                     db.OrderDetail.Add(orderDetail);
 
                 }
-
 
                 if (payment == 0)
                 {
                     //try
                     //{
-                    float total = 0;
+                    
                     //                       
 
 
                     string nameItem = "";
                     foreach (var item in cart.Items)
                     {
-                        total += item._shopping_quantity * item._shopping_product.BookPrice;
+                        
                         nameItem += "<tr>" +
                             "<td>" + item._shopping_product.BookName.ToString() + "</td>" +
                             "<td>" + item._shopping_quantity.ToString() + "</td>" +
@@ -187,6 +191,73 @@ namespace TMDT.Controllers
                 }
                 if (payment == 1)
                 {
+                    //momo payment
+                    string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+                    string partnerCode = "MOMO5RGX20191128";
+                    string accessKey = "M8brj9K6E22vXoDB";
+                    string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+                    string orderInfo = "Đơn hàng từ SHOP TMD04";
+                    string returnUrl = "/Orders";
+                    string notifyurl = "https://momo.vn/notify";
+
+                    string amount = total.ToString();
+                    string orderid = order.OrderID.ToString();
+                    string requestId = "10";
+                    string extraData = "";
+
+                    //Before sign HMAC SHA256 signature
+                    string rawHash = "partnerCode=" +
+                        partnerCode + "&accessKey=" +
+                        accessKey + "&requestId=" +
+                        requestId + "&amount=" +
+                        amount + "&orderId=" +
+                        orderid + "&orderInfo=" +
+                        orderInfo + "&returnUrl=" +
+                        returnUrl + "&notifyUrl=" +
+                        notifyurl + "&extraData=" +
+                        extraData;
+
+                    log.Debug("rawHash = " + rawHash);
+
+
+                    MomoPayment crypto = new MomoPayment();
+                    //sign signature SHA256
+                    string signature = crypto.signSHA256(rawHash, serectkey);
+                    log.Debug("Signature = " + signature);
+
+                    //build body json request
+                    JObject message = new JObject
+                                            {
+                                                { "partnerCode", partnerCode },
+                                                { "accessKey", accessKey },
+                                                { "requestId", requestId },
+                                                { "amount", amount },
+                                                { "orderId", orderid },
+                                                { "orderInfo", orderInfo },
+                                                { "returnUrl", returnUrl },
+                                                { "notifyUrl", notifyurl },
+                                                { "extraData", extraData },
+                                                { "requestType", "captureMoMoWallet" },
+                                                { "signature", signature }
+
+                                            };
+                    log.Debug("Json request to MoMo: " + message.ToString());
+                    string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+
+                    JObject jmessage = JObject.Parse(responseFromMomo);
+                    log.Debug("Return from MoMo: " + jmessage.ToString());
+                   
+                    //if (result == DialogResult.OK)
+                    //{
+                    //    //yes...
+                    //    System.Diagnostics.Process.Start(jmessage.GetValue("payUrl").ToString());
+                    //}
+                    //else if (result == DialogResult.Cancel)
+                    //{
+                    //    //no...
+                    //}
+
+
                     return null;
                 }
 

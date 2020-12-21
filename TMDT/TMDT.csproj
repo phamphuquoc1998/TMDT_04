@@ -221,7 +221,9 @@
     <Compile Include="Models\ViewModel\UserImageVM.cs" />
     <Compile Include="Models\ViewModel\UserInRoleViewModel.cs" />
     <Compile Include="Models\Voucher.cs" />
-    <Compile Include="PaypalConfigruation.cs" />
+    <Compile Include="PaymentOnline\MomoPayment.cs" />
+    <Compile Include="PaymentOnline\PaymentRequest.cs" />
+    <Compile Include="PaymentOnline\PaypalConfigruation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

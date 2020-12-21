@@ -179,6 +179,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccessDeniedAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
@@ -197,7 +198,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MailHelper\MailHelper.cs" />
+    <Compile Include="Mail\MailHelper.cs" />
     <Compile Include="Migrations\202012171439219_payment_order.cs" />
     <Compile Include="Migrations\202012171439219_payment_order.Designer.cs">
       <DependentUpon>202012171439219_payment_order.cs</DependentUpon>
@@ -257,7 +258,6 @@
     </None>
     <Content Include="Content\LayoutAdminStyles.scss" />
     <None Include="Content\Site.scss" />
-    <Content Include="MailHelper\SendMailOrder.html" />
     <Content Include="Scripts\ajaxFilter.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

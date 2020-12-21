@@ -5,8 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using TMDT.Models;
 
+using TMDT.Mail;
+using TMDT.Models;
 namespace TMDT.Controllers
 {
     public class OrdersController : Controller
@@ -122,34 +123,67 @@ namespace TMDT.Controllers
                     db.OrderDetail.Add(orderDetail);
 
                 }
-                db.SaveChanges();
+
 
                 if (payment == 0)
                 {
-                    try
+                    //try
+                    //{
+                    float total = 0;
+                    //                       
+
+
+                    string nameItem = "";
+                    foreach (var item in cart.Items)
                     {
-                        float total = 0;
-                        //                       
-                        string content = System.IO.File.ReadAllText(Server.MapPath("~/MailHelper/SendMailOrder.html"));
-                        content = content.Replace("{{OrderDate}}", order.OrderDate.ToString());
-                        content = content.Replace("{{CustomerName}}", order.NameRec);
-                        content = content.Replace("{{Phone}}", order.PhoneOrder);
-                        content = content.Replace("{{Email}}", userName);
-                        content = content.Replace("{{Address}}", order.AddressOrder);
-                        content = content.Replace("{{Total}}", total.ToString("N0"));
-                        var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+                        total += item._shopping_quantity * item._shopping_product.BookPrice;
+                        nameItem += "<tr>" +
+                            "<td>" + item._shopping_product.BookName.ToString() + "</td>" +
+                            "<td>" + item._shopping_quantity.ToString() + "</td>" +
+                            "<td>" + item._shopping_product.BookPrice.ToString() + "</td>" +
+                            "</tr>";
 
-                        new MailHelper.MailHelper().SendMail(userName, "Đơn hàng mới từ Shop TMDT04", content);
-                        new MailHelper.MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop TMDT04", content);
-                        cart.ClearCart();
-
-
-                        return RedirectToAction("SuccessView", "Paypal");
                     }
-                    catch
-                    {
-                        return Content("Error CHeckout. Please information of Customer....");
-                    }
+                    string content = "<html>" +
+                       "<head><link rel=" + "stylesheet" + " href=" + "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" + " integrity=" + "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" + " crossorigin=" + "anonymous" + "></head>" +
+                       "<body>" +
+                           "<label class=" + "label - info" + ">Tên khách hàng: " + order.NameRec.ToString() + "</label><br/>" +
+                           "<label class=" + "label - info" + ">Địa chỉ: " + order.AddressOrder.ToString() + "</label><br/>" +
+                           "<label class=" + "label - info" + ">Số điện thoại: " + order.PhoneOrder.ToString() + "</label><br/>" +
+                           "<label class=" + "label - info" + ">Email: " + userName.ToString() + "</label><br/>" +
+                                "<table class=" + "table table-hover table - bordered table - condensed" + ">" +
+                                     "<thead>" +
+                                         "<td>Tên</td>" +
+                                         "<td>Số lượng</td>" +
+                                         "<td>Đơn giá</td>" +
+                                     "</thead>" +
+                                     "<tbody>" + nameItem.ToString() +
+                                     "<tr><td>" + total.ToString("N0") + "$</td></tr>" +
+                                     "</tbody>" +
+                               "</table>" +
+                             "</body>" +
+                       " </html>";
+
+
+
+
+
+                    var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+
+                    new MailHelper().SendMail(userName, "Đơn hàng mới từ Shop TMDT04", content);
+                    new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop TMDT04", content);
+                    cart.ClearCart();
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("SuccessView", "Paypal");
+                    //}
+                    //catch
+                    //{
+                    //    return Content("Error CHeckout. Please information of Customer....");
+                    //}
+
+
                 }
                 if (payment == 1)
                 {
@@ -161,6 +195,7 @@ namespace TMDT.Controllers
             return View();
         }
 
+        [AccessDeniedAuthorize(Roles = "ADMIN")]
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -181,7 +216,7 @@ namespace TMDT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderID,UserId,AddressOrder,PhoneOrder,OrderDate,Status,Payment")] Order order)
+        public ActionResult Edit([Bind(Include = "OrderID,UserId,NameRec,AddressOrder,PhoneOrder,OrderDate,Status,Payment")] Order order)
         {
             if (ModelState.IsValid)
             {

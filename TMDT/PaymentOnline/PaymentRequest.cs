@@ -1,8 +1,6 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Net;
+using System.Text;
 namespace TMDT.Payment
 {
     class PaymentRequest
@@ -57,5 +55,5 @@ namespace TMDT.Payment
                 return e.Message;
             }
         }
-    } 
+    }
 }

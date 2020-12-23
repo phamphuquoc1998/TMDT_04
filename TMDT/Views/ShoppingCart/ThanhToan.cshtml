@@ -64,22 +64,25 @@
                 </tfoot>
 
                 </table>
-                <div>
-                <input class="radio-inline" type="radio" id="shipCode" name="payment" value=0
-                checked>
-                <label for="shipCode">Thanh toán khi nhận hàng</label>
-                <br />
-                <input class="radio-inline" type="radio" id="online" name="payment" value=1>
-                <label for="online">Thanh toán online</label>
-                @*@Html.ActionLink("Ship code", "CheckOut", "ShoppingCart", new { @class = "btn btn-info" })
-                <a href=" @Url.Action("PaymentWithPaypal", "Paypal")" class="btn btn-primary">Thanh toán bằng Tài khoản PayPal</a>*@
-                <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
+                <div class=" list-group-item">
+                    <input class="radio-inline" type="radio" id="shipCode" name="payment" value=0 checked>
+                    <label for="shipCode"> Thanh toán khi nhận hàng</label>
+                    <br />
+                    <input class="radio-inline" type="radio" id="shipCode" name="payment" value=1>
+                    <label for="shipCode"> Thanh toán bằng <img src="https://developers.momo.vn/images/logo.png" width="25" /></label>
+                    <br />
+                    <input class="radio-inline" type="radio" id="shipCode" name="payment" value=2>
+                    <label for="shipCode"> Thanh toán bằng <img src="~/Content/Images/paypal.svg" height="25" /></label>                       
+                    <br />
+                    <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
+                    <div>  <input class="btn-sm btn-success" type="submit" value="Thanh Toán" /></div>
                 </div>
-                <input class="btn btn-success" type="submit" value="Thanh Toán" />
+              
                 }
 
                 }
-
-                else
-                {
-                @ViewBag.nullCart}
+             
+    else
+    {
+    @ViewBag.nullCart
+    }

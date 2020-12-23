@@ -1034,3 +1034,9 @@ form.search_bar::after {
     margin-left: 0 !important; }
 
 /*#endregion login*/
+/*#region btn momo*/
+.checkout-radio-group {
+  border: 1px solid black;
+  border-radius: 5px; }
+
+/*#endregion momo*/

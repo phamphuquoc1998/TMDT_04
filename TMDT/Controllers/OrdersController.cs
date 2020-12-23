@@ -137,80 +137,65 @@ namespace TMDT.Controllers
                     total += item._shopping_quantity * item._shopping_product.BookPrice;
                     db.OrderDetail.Add(orderDetail);
                 }
+                db.SaveChanges();
 
                 switch (payment)
                 {
                     case 0:
                         {
-                            SentoMail(order, userName);
-                            db.SaveChanges();
+                            string nameItem = "";
+
+                            foreach (var item in cart.Items)
+                            {
+
+                                nameItem += "<tr>" +
+                                    "<td>" + item._shopping_product.BookName.ToString() + "</td>" +
+                                    "<td>" + item._shopping_quantity.ToString() + "</td>" +
+                                    "<td>" + item._shopping_product.BookPrice.ToString() + "</td>" +
+                                    "</tr>";
+
+                            }
+                            string content = "<html>" +
+                               "<body>" +
+                                   "<label class=" + "label - info" + ">Tên khách hàng: " + order.NameRec.ToString() + "</label><br/>" +
+                                   "<label class=" + "label - info" + ">Địa chỉ: " + order.AddressOrder.ToString() + "</label><br/>" +
+                                   "<label class=" + "label - info" + ">Số điện thoại: " + order.PhoneOrder.ToString() + "</label><br/>" +
+                                   "<label class=" + "label - info" + ">Email: " + userName.ToString() + "</label><br/>" +
+                                        "<table class=" + "table table-hover table - bordered table - condensed" + ">" +
+                                             "<thead>" +
+                                                 "<td>Tên</td>" +
+                                                 "<td>Số lượng</td>" +
+                                                 "<td>Đơn giá</td>" +
+                                             "</thead>" +
+                                             "<tbody>" + nameItem.ToString() +
+                                             "<tr><td>" + total.ToString("N0") + "$</td></tr>" +
+                                             "</tbody>" +
+                                       "</table>" +
+                                     "</body>" +
+                               " </html>";
+
+                            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+                            new MailHelper().SendMail(userName, "Đơn hàng mới từ Shop TMDT04", content);
+                            new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop TMDT04", content);
+                            cart.ClearCart();
                             break;
                         }
                     case 1:
                         {
-                            ThanhToan();
-                            db.SaveChanges();
-                            break;
+                            return RedirectToAction(nameof(ThanhToanMomo));
                         }
                     case 2:
                         {
-                            ThanhToan();
-                            db.SaveChanges();
-                            break;
+                            return RedirectToAction("PaymentWithPaypal", "Paypal");
                         }
                 }
 
-
             }
+            return RedirectToAction("Index", "Books");
 
-            return View();
         }
-
-        public ActionResult SentoMail(Order order, string userName)
-        {
-            Cart cart = Session["Cart"] as Cart;
-            string nameItem = "";
-            float total = 0;
-            foreach (var item in cart.Items)
-            {
-                total += item._shopping_quantity * item._shopping_product.BookPrice;
-                nameItem += "<tr>" +
-                    "<td>" + item._shopping_product.BookName.ToString() + "</td>" +
-                    "<td>" + item._shopping_quantity.ToString() + "</td>" +
-                    "<td>" + item._shopping_product.BookPrice.ToString() + "</td>" +
-                    "</tr>";
-
-            }
-            string content = "<html>" +
-               "<head></head>" +
-               "<body>" +
-                   "<label class=" + "label - info" + ">Tên khách hàng: " + order.NameRec.ToString() + "</label><br/>" +
-                   "<label class=" + "label - info" + ">Địa chỉ: " + order.AddressOrder.ToString() + "</label><br/>" +
-                   "<label class=" + "label - info" + ">Số điện thoại: " + order.PhoneOrder.ToString() + "</label><br/>" +
-                   "<label class=" + "label - info" + ">Email: " + userName.ToString() + "</label><br/>" +
-                        "<table class=" + "table table-hover table - bordered table - condensed" + ">" +
-                             "<thead>" +
-                                 "<td>Tên</td>" +
-                                 "<td>Số lượng</td>" +
-                                 "<td>Đơn giá</td>" +
-                             "</thead>" +
-                             "<tbody>" + nameItem.ToString() +
-                             "<tr><td>" + total.ToString("N0") + "$</td></tr>" +
-                             "</tbody>" +
-                       "</table>" +
-                     "</body>" +
-               " </html>";
-
-            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
-            new MailHelper().SendMail(userName, "Đơn hàng mới từ Shop TMDT04", content);
-            new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop TMDT04", content);
-            cart.ClearCart();
-
-            return RedirectToAction("SuccessView", "Paypal");
-        }
-
-        #region thanhtoan
-        public bool ThanhToan()
+        #region thanhtoan Momo
+        public ActionResult ThanhToanMomo()
         {
             Cart cart = Session["Cart"] as Cart;
             //momo payment VND
@@ -222,10 +207,10 @@ namespace TMDT.Controllers
             string returnUrl = "https://localhost:44354/Orders/ReturnUrl";
             string notifyurl = "https://localhost:44354/Orders/NotifyUrl";
 
-            string amount = cart.Items.Sum(n => n._shopping_product.BookPrice).ToString();
+            string amount = cart.Items.Sum(n => n._shopping_product.BookPrice * n._shopping_quantity).ToString();
             string orderid = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
-            string extraData = "";
+            string extraData = "payment";
 
             //Before sign HMAC SHA256 signature
             string rawHash = "partnerCode=" +
@@ -268,17 +253,10 @@ namespace TMDT.Controllers
 
             JObject jmessage = JObject.Parse(responseFromMomo);
             log.Debug("Return from MoMo: " + jmessage.ToString());
-            if (jmessage != null)
-            {
-                Redirect(jmessage.GetValue("payUrl").ToString());
-                return true;
-            }
 
-            return false;
-
+            return Redirect(jmessage.GetValue("payUrl").ToString());
 
         }
-        #endregion
 
         public ActionResult ReturnUrl()
         {
@@ -290,17 +268,18 @@ namespace TMDT.Controllers
             if (signature != Request["signature"].ToString())
             {
                 ViewBag.message = "Thông tin Request không hợp lệ";
-                return View();
+
             }
-            if (!Request.QueryString["errorCode"].Equals("0"))
+
+            if (Request.QueryString["errorCode"].Equals("-2") || Request.QueryString["errorCode"].Equals("0"))
             {
-                ViewBag.message = "Thanh toán thất bại";
+
+                ViewBag.message = "Thanh toán thành công";
+
             }
             else
             {
-                ViewBag.message = "Thanh toán thành công";
-                Cart cart = Session["Cart"] as Cart;
-                cart.ClearCart();
+                ViewBag.message = "Thanh toán thất bại";
             }
             return View();
         }
@@ -320,7 +299,7 @@ namespace TMDT.Controllers
             param = Server.UrlDecode(param);
             MomoPayment crypto = new MomoPayment();
 
-            string serectkey = ConfigurationManager.AppSettings["serectkey"].ToString();
+            string serectkey = "UVkryZe6tEZfWSrnKvQapJjgBzKROh9V";
             string signature = crypto.signSHA256(param, serectkey);
 
             //k dc cap nhat trang thai don, khi  status trong db != status WAIT
@@ -336,7 +315,7 @@ namespace TMDT.Controllers
             }
             return Json("", JsonRequestBehavior.AllowGet);
         }
-
+        #endregion
 
         [AccessDeniedAuthorize(Roles = "ADMIN")]
         // GET: Orders/Edit/5

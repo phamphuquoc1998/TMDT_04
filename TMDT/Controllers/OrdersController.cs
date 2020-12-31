@@ -72,7 +72,7 @@ namespace TMDT.Controllers
         public ActionResult ListOrderOfUser()
         {
             string currentUserId = User.Identity.GetUserId();
-            var listOrder = (from m in db.Order where m.UserId == currentUserId select m).ToList();
+            var listOrder = (from m in db.Order where m.UserId == currentUserId select m).ToList(); 
             return View(listOrder);
         }
 

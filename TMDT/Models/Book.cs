@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Web;
 
 namespace TMDT.Models
@@ -18,8 +16,10 @@ namespace TMDT.Models
         [Display(Name = "Tên sách")]
         [Required(ErrorMessage = "Tên sách là bắt buộc")]
         public string BookName { get; set; }
+        [Display(Name = "Tồn kho"), Range(0, 1000)]
+        public int InStock { get; set; }
 
-        [Display(Name = "Giá")]
+        [Display(Name = "Giá"), Range(0, 10000000)]
         public float BookPrice { get; set; }
         [Display(Name = "Mô tả")]
         public string BookDescription { get; set; }

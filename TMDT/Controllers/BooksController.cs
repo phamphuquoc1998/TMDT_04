@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PagedList;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using TMDT.Models;
-using PagedList;
-using PagedList.Mvc;
 namespace TMDT.Controllers
 {
     public class BooksController : Controller
@@ -17,11 +14,11 @@ namespace TMDT.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index(int? i)
+        public ActionResult Index(int? page)
         {
-          
+
             var book = db.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.Provider).Include(b => b.Publisher);
-            return View(book.ToList().ToPagedList(i ??  1,6));
+            return View(book.ToList().ToPagedList(page ?? 1, 10));
         }
 
         // GET: Books/Details/5
@@ -102,7 +99,7 @@ namespace TMDT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,BookName,BookPrice,BookDescription,PublisherDate,Image,AuthorID,PublisherID,ProviderID,CateID")] Book book)
+        public ActionResult Edit([Bind(Include = "BookID,BookName,BookPrice,BookDescription,PublisherDate,Image,AuthorID,PublisherID,ProviderID,CateID,InStock")] Book book)
         {
             if (ModelState.IsValid)
             {

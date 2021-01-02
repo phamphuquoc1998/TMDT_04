@@ -15,88 +15,6 @@ Layout = "~/Views/Shared/_Layout.cshtml";
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
-@*<div>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.AuthorName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.AuthorName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CateName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CateName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Provider.ProviderName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Provider.ProviderName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher.PublisherName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Publisher.PublisherName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublisherDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublisherDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
-
 <h3 style="margin-left:25px"> Thông tin chi tiết sách</h3>
 <div class="row m-3">
     <div class="col-3">
@@ -108,20 +26,24 @@ Layout = "~/Views/Shared/_Layout.cshtml";
             <h4>@String.Format("{0:n0}", Model.BookPrice) VNĐ</h4>
             <!-- Form đặt sách sách vào giỏ hàng -->
             <hr style="border-bottom: 1px solid #337ab7;" />
-            <form action="~/Cart/AddItemToCart" class="form-inline" method="post">
+            <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
                 <h4 class="mt-1">Số lượng</h4>
                 <div class="form-group m-2">
-                    <input type="hidden" name="BookID" value=@Model.BookID />
-                    <input type="number" class="form-control" value=@Model.InStock name="Quantity" style="width: 80px" min="1" max=@Model.InStock>
+                    <input type="hidden" name="id" value=@Model.BookID />
+                    <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
                 </div>
                 @*@if (Model.Inventory != 0)
-                {
-                    <button type="submit" class="btn btn-primary m-2">Đặt mua</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn btn-primary m-2" disabled>Hết hàng</button>
-                }*@
+        {
+            <button type="submit" class="btn btn-primary m-2">Đặt mua</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary m-2" disabled>Hết hàng</button>
+        }*@
+                <div class="functional-buttons clearfix">
+
+                   <button type="submit">Mua Ngay</button>
+                </div>
             </form>
 
             <hr style="border-bottom: 1px solid #337ab7;" />

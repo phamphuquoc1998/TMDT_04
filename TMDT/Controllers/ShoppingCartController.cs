@@ -21,22 +21,33 @@ namespace TMDT.Controllers
             return cart;
         }
         [Authorize(Roles = "User")]
-        public ActionResult AddtoCart(int id)
+        //public ActionResult AddtoCart(int id)
+        //{
+        //    var pro = _db.Book.SingleOrDefault(s => s.BookID == id);
+        //    if (pro != null)
+        //    {
+        //        GetCart().Add(pro);
+        //    }
+        //    return Redirect(Request.UrlReferrer.ToString());
+
+        //}
+
+        public ActionResult AddtoCart(int id, int quantity)
         {
             var pro = _db.Book.SingleOrDefault(s => s.BookID == id);
             if (pro != null)
             {
-                GetCart().Add(pro);
+                GetCart().Add(pro, quantity);
             }
             return Redirect(Request.UrlReferrer.ToString());
 
         }
-        public ActionResult AddtoCart_Detail(int id)
+        public ActionResult AddtoCart_Detail(int id, int quantity)
         {
             var pro = _db.Book.SingleOrDefault(s => s.BookID == id);
             if (pro != null)
             {
-                GetCart().Add(pro);
+                GetCart().Add(pro, quantity);
             }
             return RedirectToAction("ShowToCart", "ShoppingCart");
 

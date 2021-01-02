@@ -112,7 +112,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                 <h4 class="mt-1">Số lượng</h4>
                 <div class="form-group m-2">
                     <input type="hidden" name="BookID" value=@Model.BookID />
-                    <input type="number" class="form-control" value="1" name="Quantity" style="width: 30%">
+                    <input type="number" class="form-control" value=@Model.InStock name="Quantity" style="width: 80px" min="1" max=@Model.InStock>
                 </div>
                 @*@if (Model.Inventory != 0)
                 {

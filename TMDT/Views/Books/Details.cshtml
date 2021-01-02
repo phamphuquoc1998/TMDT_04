@@ -18,7 +18,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 <h3 style="margin-left:25px"> Thông tin chi tiết sách</h3>
 <div class="row m-3">
     <div class="col-3">
-        <img src="~/BookImage/@Model.Image" style="width:80%" />
+        <img src=@Model.Image.Trim('~') style="width:200px" />
     </div>
     <div class="col-6">
 

@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ManageRoleController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaypalController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
     <Compile Include="Controllers\PublishersController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -210,6 +211,22 @@
     <Compile Include="Migrations\202101111139561_new_db.cs" />
     <Compile Include="Migrations\202101111139561_new_db.Designer.cs">
       <DependentUpon>202101111139561_new_db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101101649554__change.cs" />
+    <Compile Include="Migrations\202101101649554__change.Designer.cs">
+      <DependentUpon>202101101649554__change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101110304474__change2.cs" />
+    <Compile Include="Migrations\202101110304474__change2.Designer.cs">
+      <DependentUpon>202101110304474__change2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101111006128__chang4.cs" />
+    <Compile Include="Migrations\202101111006128__chang4.Designer.cs">
+      <DependentUpon>202101111006128__chang4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101111317082_InitDAta.cs" />
+    <Compile Include="Migrations\202101111317082_InitDAta.Designer.cs">
+      <DependentUpon>202101111317082_InitDAta.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -224,6 +241,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Models\ViewModel\UserImageVM.cs" />
@@ -246,7 +264,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\add.png" />
+    <Content Include="Content\Images\b8.jpg" />
+    <Content Include="Content\Images\book3.jpg" />
+    <Content Include="Content\Images\facebook.png" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\sach-t7.jpg" />
     <Content Include="Content\Images\thumbnail.png" />
     <Content Include="Content\js\scripts.js" />
     <Content Include="Content\LayoutAdminStyles.css">
@@ -383,6 +405,7 @@
     <Content Include="Views\Orders\ListOrderOfUser.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\ReturnUrl.cshtml" />
+    <Content Include="Views\Price\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -403,6 +426,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202101111139561_new_db.resx">
       <DependentUpon>202101111139561_new_db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101649554__change.resx">
+      <DependentUpon>202101101649554__change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101110304474__change2.resx">
+      <DependentUpon>202101110304474__change2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101111006128__chang4.resx">
+      <DependentUpon>202101111006128__chang4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101111317082_InitDAta.resx">
+      <DependentUpon>202101111317082_InitDAta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

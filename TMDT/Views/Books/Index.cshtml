@@ -181,6 +181,7 @@ else
 
                 <div class="row row_book">
                     @ViewBag.nullBook
+
                     @foreach (var item in Model)
                     {
                         if (item.InStock != 0 || item.InStock > 0)
@@ -195,7 +196,7 @@ else
                                             <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
-                                            @*<span class="label-new label">New</span>*@
+                                            <span class="label-new label">New</span>
                                         </div>
                                         <div class="right-block">
                                             <div class="product-meta">
@@ -219,11 +220,225 @@ else
                                 </div>
                             </div>
                         }
+                        else
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="book-item">
+                                    <div class="product-block">
+                                        <div class="left-block">
+                                            <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                                <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                            </a>
+                                            <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </a>
+                                            <span class="label-new label">New</span>
+                                        </div>
+                                        <div class="right-block">
+                                            <div class="product-meta">
+                                                <h5 class="name">
+                                                    <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                                </h5>
+                                                <div class="content_price">
+                                                    <span class="price product-price">
+                                                        @Html.DisplayFor(modelItem => item.BookPrice) &#36;
+                                                    </span>
+                                                    <span class="old-price product-price">999,999&#36;</span>
+                                                    <span class="price-percent-reduction">50%</span>
+                                                </div>
+                                                <div class="functional-buttons clearfix">
+
+                                                    <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     }
                     <br />
 
+                    <!--<div class="recommended_items">-->
+                    <!--recommended_items-->
+                    <!--<h2 class=" text-center">Best Seller</h2>
+
+            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="~/Content/Images/book3.jpg" alt="" />
+                                        <h2>$100.000</h2>
+                                        <p>Audi A4</p>
+                                        <a href="#" class="btn btn-warning">Buy</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="~/images/bestseller/bmwx1.jpg" alt="" />
+                                        <h2>$180.000</h2>
+                                        <p>Audi Q7</p>
+                                        <a href="#" class="btn btn-warning">Buy</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="~/images/bestseller/Audi Q5.jpg" alt="" />
+                                        <h2>$200.000</h2>
+                                        <p>Audi Q5</p>
+                                        <a href="#" class="btn btn-warning">Buy</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="~/images/bestseller/bmwi8.jpg" alt="" />
+                                        <h2>420.000</h2>
+                                        <p>BMW i8</p>
+                                        <a href="#" class="btn btn-warning">Buy</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="~/images/bestseller/rangerover.jpg" alt="" />
+                                        <h2>$550.000</h2>
+                                        <p>Range Rover</p>
+                                        <a href="#" class="btn btn-warning">Buy</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="~/images/bestseller/bmw suv.jpg" alt="" />
+                                        <h2>$80.000</h2>
+                                        <p>BMW SUV</p>
+                                        <a href="#" class="btn btn-warning">Buy</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>-->
+                    <!--/recommended_items-->
+
+                </div>
+                <h1>San pham moi nhat</h1>
+                @foreach (var item in ViewData["latestbooks"] as IEnumerable<TMDT.Models.Book>)
+                {
+                    if (item.InStock != 0 || item.InStock > 0)
+                    {
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="book-item">
+                                <div class="product-block">
+                                    <div class="left-block">
+                                        <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                            <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                        </a>
+                                        <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </a>
+                                        <span class="label-new label">New</span>
+                                    </div>
+                                    <div class="right-block">
+                                        <div class="product-meta">
+                                            <h5 class="name">
+                                                <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                            </h5>
+                                            <div class="content_price">
+                                                <span class="price product-price">
+                                                    @Html.DisplayFor(modelItem => item.BookPrice) &#36;
+                                                </span>
+                                                <span class="old-price product-price">999,999&#36;</span>
+                                                <span class="price-percent-reduction">50%</span>
+                                            </div>
+                                            <div class="functional-buttons clearfix">
+
+                                                <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="book-item">
+                                <div class="product-block">
+                                    <div class="left-block">
+                                        <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                            <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                        </a>
+                                        <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </a>
+                                        <span class="label-new label">New</span>
+                                    </div>
+                                    <div class="right-block">
+                                        <div class="product-meta">
+                                            <h5 class="name">
+                                                <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                            </h5>
+                                            <div class="content_price">
+                                                <span class="price product-price">
+                                                    @Html.DisplayFor(modelItem => item.BookPrice) &#36;
+                                                </span>
+                                                <span class="old-price product-price">999,999&#36;</span>
+                                                <span class="price-percent-reduction">50%</span>
+                                            </div>
+                                            <div class="functional-buttons clearfix">
+
+                                                <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
         </div>
-    </div>}
+    </div>
+}
+
 @Html.PagedListPager(Model, i => Url.Action("Index", "Books", new { i, search = Request.QueryString["search"] }))
+

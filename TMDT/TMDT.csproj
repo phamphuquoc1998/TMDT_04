@@ -236,6 +236,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\demo\chart-area-demo.js" />
+    <Content Include="Content\assets\demo\chart-bar-demo.js" />
+    <Content Include="Content\assets\demo\chart-pie-demo.js" />
+    <Content Include="Content\assets\demo\datatables-demo.js" />
+    <Content Include="Content\assets\img\error-404-monochrome.svg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -243,6 +248,7 @@
     <Content Include="Content\Images\add.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\thumbnail.png" />
+    <Content Include="Content\js\scripts.js" />
     <Content Include="Content\LayoutAdminStyles.css">
       <DependentUpon>LayoutAdminStyles.scss</DependentUpon>
     </Content>
@@ -251,12 +257,14 @@
     </Content>
     <Content Include="Content\Page404\URL404.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\scripts.js" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
+    <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -272,7 +280,12 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\build-assets.js" />
+    <Content Include="Scripts\build-pug.js" />
+    <Content Include="Scripts\build-scripts.js" />
+    <Content Include="Scripts\build-scss.js" />
     <Content Include="Scripts\ChangeImg.js" />
+    <Content Include="Scripts\clean.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -283,6 +296,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\render-assets.js" />
+    <Content Include="Scripts\render-pug.js" />
+    <Content Include="Scripts\render-scripts.js" />
+    <Content Include="Scripts\render-scss.js" />
+    <Content Include="Scripts\sb-watch.js" />
+    <Content Include="Scripts\start-debug.js" />
+    <Content Include="Scripts\start.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -72,7 +72,7 @@ namespace TMDT.Controllers
         public ActionResult ListOrderOfUser()
         {
             string currentUserId = User.Identity.GetUserId();
-            var listOrder = (from m in db.Order where m.UserId == currentUserId select m).ToList(); 
+            var listOrder = (from m in db.Order where m.UserId == currentUserId select m).ToList();
             return View(listOrder);
         }
 
@@ -134,6 +134,7 @@ namespace TMDT.Controllers
                     orderDetail.BookID = item._shopping_product.BookID;
                     orderDetail.UnitPriceSale = item._shopping_product.BookPrice;
                     orderDetail.Quantity = item._shopping_quantity;
+                    orderDetail.Book.InStock -= item._shopping_quantity;
                     total += item._shopping_quantity * item._shopping_product.BookPrice;
                     db.OrderDetail.Add(orderDetail);
                 }

@@ -14,11 +14,11 @@ namespace TMDT.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? i)
         {
 
             var book = db.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.Provider).Include(b => b.Publisher);
-            return View(book.ToList().ToPagedList(page ?? 1, 10));
+            return View(book.ToList().ToPagedList(i ?? 1, 3));
         }
 
         // GET: Books/Details/5

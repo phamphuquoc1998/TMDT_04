@@ -45,7 +45,7 @@
         @using (Html.BeginForm("Update_Quantity_Cart", "ShoppingCart"))
         {
 <input type="hidden" value="@item._shopping_product.BookID" name="ID_Product" />
-                        <input type="number" value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" />
+                        <input type="number" value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" max=@item._shopping_product.InStock min="1" />
                                                 <button type="submit" value="Update Quantity" style="outline:none;border:none;" class="btn btn-info">Update</button>}
 
     </td>

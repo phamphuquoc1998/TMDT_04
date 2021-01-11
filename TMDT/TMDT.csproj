@@ -207,13 +207,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mail\MailHelper.cs" />
-    <Compile Include="Migrations\202012171439219_payment_order.cs" />
-    <Compile Include="Migrations\202012171439219_payment_order.Designer.cs">
-      <DependentUpon>202012171439219_payment_order.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101020231470__new_book_instock.cs" />
-    <Compile Include="Migrations\202101020231470__new_book_instock.Designer.cs">
-      <DependentUpon>202101020231470__new_book_instock.cs</DependentUpon>
+    <Compile Include="Migrations\202101111139561_new_db.cs" />
+    <Compile Include="Migrations\202101111139561_new_db.Designer.cs">
+      <DependentUpon>202101111139561_new_db.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -384,11 +380,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012171439219_payment_order.resx">
-      <DependentUpon>202012171439219_payment_order.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101020231470__new_book_instock.resx">
-      <DependentUpon>202101020231470__new_book_instock.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101111139561_new_db.resx">
+      <DependentUpon>202101111139561_new_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

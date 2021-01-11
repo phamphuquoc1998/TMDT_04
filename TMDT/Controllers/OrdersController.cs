@@ -128,13 +128,12 @@ namespace TMDT.Controllers
                 Cart cart = Session["Cart"] as Cart;
                 foreach (var item in cart.Items)
                 {
-
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.OrderID = order.OrderID;
                     orderDetail.BookID = item._shopping_product.BookID;
                     orderDetail.UnitPriceSale = item._shopping_product.BookPrice;
                     orderDetail.Quantity = item._shopping_quantity;
-                    orderDetail.Book.InStock -= item._shopping_quantity;
+                    item._shopping_product.InStock -= item._shopping_quantity;
                     total += item._shopping_quantity * item._shopping_product.BookPrice;
                     db.OrderDetail.Add(orderDetail);
                 }

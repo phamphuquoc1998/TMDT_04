@@ -269,7 +269,7 @@
         }
 
         .logo_top:after {
-            content: 'AC';
+            content: 'AQK';
             position: absolute;
             left: 4px;
             top: 2px;
@@ -1218,3 +1218,10 @@ form.search_bar::after {
 }
 /*#endregion login*/
 
+/*#region btn momo*/
+.checkout-radio-group {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+/*#endregion momo*/

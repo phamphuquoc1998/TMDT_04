@@ -7,13 +7,13 @@ namespace TMDT.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _new_table : IMigrationMetadata
+    public sealed partial class payment_order : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_new_table));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(payment_order));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012070703405__new_table"; }
+            get { return "202012171439219_payment_order"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PagedList;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using TMDT.Models;
-
 namespace TMDT.Controllers
 {
     public class BooksController : Controller
@@ -16,10 +14,11 @@ namespace TMDT.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index()
+        public ActionResult Index(int? i)
         {
+
             var book = db.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.Provider).Include(b => b.Publisher);
-            return View(book.ToList());
+            return View(book.ToList().ToPagedList(i ?? 1, 3));
         }
 
         // GET: Books/Details/5
@@ -100,7 +99,7 @@ namespace TMDT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,BookName,BookPrice,BookDescription,PublisherDate,Image,AuthorID,PublisherID,ProviderID,CateID")] Book book)
+        public ActionResult Edit([Bind(Include = "BookID,BookName,BookPrice,BookDescription,PublisherDate,Image,AuthorID,PublisherID,ProviderID,CateID,InStock")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -172,5 +171,29 @@ namespace TMDT.Controllers
             }
             base.Dispose(disposing);
         }
+        //public ActionResult PhanTrang(int? page)
+        //{
+
+        //    // 1. Tham số int? dùng để thể hiện null và kiểu int
+        //    // page có thể có giá trị là null và kiểu int.
+
+        //    // 2. Nếu page = null thì đặt lại là 1.
+        //    if (page == null) page = 1;
+
+        //    // 3. Tạo truy vấn, lưu ý phải sắp xếp theo trường nào đó, ví dụ OrderBy
+        //    // theo LinkID mới có thể phân trang.
+        //    var links = (from l in db.Book
+        //                 select l).OrderBy(x => x.BookID);
+
+        //    // 4. Tạo kích thước trang (pageSize) hay là số Link hiển thị trên 1 trang
+        //    int pageSize = 3;
+
+        //    // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+        //    // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+        //    int pageNumber = (page ?? 1);
+
+        //    // 5. Trả về các Link được phân trang theo kích thước và số trang.
+        //    return View(links.ToPagedList(pageNumber, pageSize));
+        //}
     }
 }

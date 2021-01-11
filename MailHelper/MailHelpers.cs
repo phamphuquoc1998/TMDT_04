@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Web;
 
-namespace TMDT.MailHelper
+namespace Common
 {
-    public class MailHelper
+    public class MailHelpers
     {
         public void SendMail(string toEmailAddress, string subject, string content)
         {

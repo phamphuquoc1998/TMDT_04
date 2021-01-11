@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace TMDT.Models
 {
@@ -12,7 +10,7 @@ namespace TMDT.Models
         {
             get { return items; }
         }
-        public void Add(Book _pro, int _quantity = 1)
+        public void Add(Book _pro, int _quantity)
         {
             var item = Items.FirstOrDefault(s => s._shopping_product.BookID == _pro.BookID);
             if (item == null)

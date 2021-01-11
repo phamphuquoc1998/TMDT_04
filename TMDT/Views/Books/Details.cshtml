@@ -2,11 +2,9 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-@*<<<<<<< Updated upstream
-      Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-=======*@
-    //>>>>>>> Stashed changes
+
+Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 <head>
     <meta charset="utf-8">
@@ -16,92 +14,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
-@*<div>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.AuthorName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.AuthorName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CateName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CateName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Provider.ProviderName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Provider.ProviderName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher.PublisherName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Publisher.PublisherName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublisherDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublisherDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
-
 <h3 style="margin-left:25px"> Thông tin chi tiết sách</h3>
 <div class="row m-3">
     <div class="col-3">
-        <img src="~/BookImage/@Model.Image" style="width:80%" />
+        <img src=@Model.Image.Trim('~') style="width:200px" />
     </div>
     <div class="col-6">
 
@@ -109,20 +25,15 @@
             <h4>@String.Format("{0:n0}", Model.BookPrice) VNĐ</h4>
             <!-- Form đặt sách sách vào giỏ hàng -->
             <hr style="border-bottom: 1px solid #337ab7;" />
-            <form action="~/Cart/AddItemToCart" class="form-inline" method="post">
+            <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
                 <h4 class="mt-1">Số lượng</h4>
                 <div class="form-group m-2">
-                    <input type="hidden" name="BookID" value=@Model.BookID />
-                    <input type="number" class="form-control" value="1" name="Quantity" style="width: 30%">
+                    <input type="hidden" name="id" value=@Model.BookID />
+                    <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
+                </div>             
+                <div class="btn btn-warning">
+                   <button type="submit">Mua Ngay</button>
                 </div>
-                @*@if (Model.Inventory != 0)
-                {
-                    <button type="submit" class="btn btn-primary m-2">Đặt mua</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn btn-primary m-2" disabled>Hết hàng</button>
-                }*@
             </form>
 
             <hr style="border-bottom: 1px solid #337ab7;" />

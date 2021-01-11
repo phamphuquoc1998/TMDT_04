@@ -166,7 +166,7 @@
       text-decoration: none;
       left: 45px; }
     .header_top .logo_wrapper .logo_top:after {
-      content: 'AC';
+      content: 'AQK';
       position: absolute;
       left: 4px;
       top: 2px;
@@ -1034,3 +1034,9 @@ form.search_bar::after {
     margin-left: 0 !important; }
 
 /*#endregion login*/
+/*#region btn momo*/
+.checkout-radio-group {
+  border: 1px solid black;
+  border-radius: 5px; }
+
+/*#endregion momo*/

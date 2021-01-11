@@ -7,13 +7,13 @@ namespace TMDT.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitDAta : IMigrationMetadata
+    public sealed partial class edit_comment : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDAta));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(edit_comment));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101111317082_InitDAta"; }
+            get { return "202101111652430_edit_comment"; }
         }
         
         string IMigrationMetadata.Source

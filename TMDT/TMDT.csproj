@@ -208,25 +208,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mail\MailHelper.cs" />
-    <Compile Include="Migrations\202101111139561_new_db.cs" />
-    <Compile Include="Migrations\202101111139561_new_db.Designer.cs">
-      <DependentUpon>202101111139561_new_db.cs</DependentUpon>
+    <Compile Include="Migrations\202101111616530_new_db.cs" />
+    <Compile Include="Migrations\202101111616530_new_db.Designer.cs">
+      <DependentUpon>202101111616530_new_db.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101101649554__change.cs" />
-    <Compile Include="Migrations\202101101649554__change.Designer.cs">
-      <DependentUpon>202101101649554__change.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101110304474__change2.cs" />
-    <Compile Include="Migrations\202101110304474__change2.Designer.cs">
-      <DependentUpon>202101110304474__change2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101111006128__chang4.cs" />
-    <Compile Include="Migrations\202101111006128__chang4.Designer.cs">
-      <DependentUpon>202101111006128__chang4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101111317082_InitDAta.cs" />
-    <Compile Include="Migrations\202101111317082_InitDAta.Designer.cs">
-      <DependentUpon>202101111317082_InitDAta.cs</DependentUpon>
+    <Compile Include="Migrations\202101111652430_edit_comment.cs" />
+    <Compile Include="Migrations\202101111652430_edit_comment.Designer.cs">
+      <DependentUpon>202101111652430_edit_comment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -424,20 +412,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101111139561_new_db.resx">
-      <DependentUpon>202101111139561_new_db.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101111616530_new_db.resx">
+      <DependentUpon>202101111616530_new_db.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101101649554__change.resx">
-      <DependentUpon>202101101649554__change.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101110304474__change2.resx">
-      <DependentUpon>202101110304474__change2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101111006128__chang4.resx">
-      <DependentUpon>202101111006128__chang4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101111317082_InitDAta.resx">
-      <DependentUpon>202101111317082_InitDAta.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101111652430_edit_comment.resx">
+      <DependentUpon>202101111652430_edit_comment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,7 +13,7 @@ namespace TMDT.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202101111139561_new_db"; }
+            get { return "202101111616530_new_db"; }
         }
         
         string IMigrationMetadata.Source

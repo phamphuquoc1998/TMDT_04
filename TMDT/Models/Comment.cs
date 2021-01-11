@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TMDT.Models
 {
@@ -15,7 +12,11 @@ namespace TMDT.Models
         public int BookID { get; set; }
         [Display(Name = "BookID")]
         public string UserId { get; set; }
-        [Display(Name = "UserID")] 
+        [Display(Name = "UserID")]
+        public string Name { get; set; }
+        [Display(Name = "Name")]
+        public string Avatar { get; set; }
+        [Display(Name = "Avatar")]
         public string Content { get; set; }
         public DateTime Time { get; set; }
         public ICollection<Book> Book { get; set; }

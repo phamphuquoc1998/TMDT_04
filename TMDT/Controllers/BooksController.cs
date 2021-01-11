@@ -1,7 +1,5 @@
 ﻿using PagedList;
-using PayPal.Api;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -199,66 +197,20 @@ namespace TMDT.Controllers
             base.Dispose(disposing);
         }
 
-        //public ActionResult PhanTrang(int? page)
-        //{
 
-        //    // 1. Tham số int? dùng để thể hiện null và kiểu int
-        //    // page có thể có giá trị là null và kiểu int.
-
-        //    // 2. Nếu page = null thì đặt lại là 1.
-        //    if (page == null) page = 1;
-
-        //    // 3. Tạo truy vấn, lưu ý phải sắp xếp theo trường nào đó, ví dụ OrderBy
-        //    // theo LinkID mới có thể phân trang.
-        //    var links = (from l in db.Book
-        //                 select l).OrderBy(x => x.BookID);
-
-        //    // 4. Tạo kích thước trang (pageSize) hay là số Link hiển thị trên 1 trang
-        //    int pageSize = 3;
-
-        //    // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
-        //    // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
-        //    int pageNumber = (page ?? 1);
-
-        //    // 5. Trả về các Link được phân trang theo kích thước và số trang.
-        //    return View(links.ToPagedList(pageNumber, pageSize));
-        //}
         public ActionResult Review([Bind(Include = "ID, Comment, UserID, BookID")] Comment review, int proid, string Comment)
         {
-            //Đếm sản phẩm trong giỏ hàng
-            List<Item> cart = (List<Item>)Session["cart"];
-            if (Session["cart"] == null)
-            {
-                ViewData["countCartProducts"] = 0;
-            }
-            else
-            {   
-                ViewData["countCartProducts"] = cart.Count;
-            }
+            //Đếm sản phẩm trong giỏ hàng           
             var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            review.Name = user.UserName;
+            review.Avatar = user.Image.ToString().Replace("~", "");
             review.UserId = user.Id;
             review.BookID = proid;
             review.Time = DateTime.Now;
             review.Content = Comment;
             db.Comments.Add(review);
             db.SaveChanges();
-            return RedirectToAction("Details", "Books", new { id = proid });
-
-            /*try
-            {
-
-                var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
-                review.UserId = user.Id;
-                review.BookID = proid;
-                review.Time = DateTime.Now;
-                db.Comments.Add(review);
-                db.SaveChanges();
-                return RedirectToAction("Details", "Books", new { id = proid });
-            }
-            catch
-            {
-                return RedirectToAction("Details", "Books", new { id = proid, error = "You have to login to comment this post" });
-            }*/
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
     }

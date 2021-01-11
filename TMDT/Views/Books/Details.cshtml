@@ -23,21 +23,21 @@
     <div class="col-6">
 
         <h2>@Model.BookName</h2>
-        <h4>@String.Format("{0:n0}", Model.BookPrice) VNĐ</h4>
+        <h4>@String.Format("{0:n0}", Model.BookPrice) ₫</h4>
         <!-- Form đặt sách sách vào giỏ hàng -->
         <hr style="border-bottom: 1px solid #337ab7;" />
-        @*<form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
+      <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
                 <h4 class="mt-1">Số lượng</h4>
                 <div class="form-group m-2">
                     <input type="hidden" name="id" value=@Model.BookID />
                     <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
                 </div>
-                <div class="btn btn-warning">
-                   <button type="submit">Mua Ngay</button>
+                <div class="btn btn-dark btn-group">
+                   <button type="submit" >Mua Ngay</button>
                 </div>
-            </form>*@
+            </form>
 
-        @*<hr style="border-bottom: 1px solid #337ab7;" />*@
+        <hr style="border-bottom: 1px solid #337ab7;" />
         <h6>Tóm tắt nội dung:</h6>
         <p>@Model.BookDescription</p>
 
@@ -49,27 +49,6 @@
     </div>
 </div>
 
-<!-- Bình luận sách -->
-@*<h3 style="margin-left:25px">Bình Luận</h3>
-    <div class="row m-3">
-        <div class="col-12">
-            @if (Session["User"] != null)
-            {
-                <form action="~/Comment/AddComment" method="post">
-                    <label>Bình luận về sản phẩm này :</label>
-                    <div class="form-group m-2">
-                        <input type="hidden" name="BookID" value=@Model.BookID />
-                        <textarea class="form-control" name="Content" rows="3" style="width: 50%"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary m-2">Bình luận</button>
-                </form>
-            }
-            else
-            {
-                <p style="color: red">Hãy đăng nhập để bình luận</p>
-            }
-        </div>
-    </div>*@
 @*Comments*@
 <div class="row">
     <div class="col-md-12">
@@ -85,12 +64,14 @@
                             <h3>Reviews (@ViewBag.countReview)</h3>
                             @foreach (var item in ViewBag.review)
                             {
-                                <div class="commant-text row">
-                                   @* <div class="col-lg-2 col-md-2 col-sm-4">
-                                        <div class="profile"> <img class="img-responsive" src="~/Images/Avatar/@item.Account.Avatar" alt="#"> </div>
-                                    </div>*@
+                                <div class="commant-text row flex-column">
+                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                        <div class="profile"> <img
+                                                                   style="height: 45px; width: 45px; border-radius: 50%; border: 1px orange solid; padding: 3px; margin:0 auto"
+                                                                   class="img-responsive avatar" src="@item.Avatar" alt="#"> </div>
+                                    </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8">
-                                        <h5>@item.UserId</h5>
+                                        <h5>@item.Name</h5>
                                         <p><span class="c_date">@item.Time</span> | <span><a rel="nofollow" class="comment-reply-link" href="#">Reply</a></span></p>
                                         <span class="rating"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i> </span>
                                         <p class="msg">@item.Content</p>

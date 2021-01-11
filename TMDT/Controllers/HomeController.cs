@@ -17,7 +17,7 @@ namespace TMDT.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View(); //nè ông ua phai au ong set trang chu trang nao ma, à nhầm
         }
 
         public ActionResult Contact()

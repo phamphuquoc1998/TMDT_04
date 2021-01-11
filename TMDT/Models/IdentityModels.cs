@@ -69,5 +69,7 @@ namespace TMDT.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<TMDT.Models.Price> Prices { get; set; }
     }
 }

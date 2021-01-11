@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TMDT.Models
 {
@@ -11,21 +11,13 @@ namespace TMDT.Models
     {
         [Key]
         public int CommentId { get; set; }
-
-        [Display(Name = "Tên người dùng")]
-
-        public string UserId { get; set; }
-
-        [Display(Name = "Quyển sách hiện tại")]
-        [ForeignKey("Book")]
+        [Display(Name = "CommentID")]
         public int BookID { get; set; }
-        public Book Book { get; set; }
-
-        [Display(Name = "Nội dung")]
+        [Display(Name = "BookID")]
+        public string UserId { get; set; }
+        [Display(Name = "UserID")] 
         public string Content { get; set; }
-
-        [Display(Name = "Thời gian")]
         public DateTime Time { get; set; }
-
+        public ICollection<Book> Book { get; set; }
     }
 }

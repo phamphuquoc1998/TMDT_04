@@ -1,5 +1,7 @@
 ﻿using PagedList;
+using PayPal.Api;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -18,11 +20,14 @@ namespace TMDT.Controllers
         {
 
             var book = db.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.Provider).Include(b => b.Publisher);
+            //san pham moi nhap 
+            var latestbooks = db.Book.Take(4).OrderByDescending(x => x.PublisherDate).ToList(); //lấy 10 sp mới dc them cai lệnh đó là tăng hay giảm gì á quên oi :))) lệnh take la set bao nhiu sp hiển thị
+            ViewData["latestbooks"] = latestbooks;
             return View(book.ToList().ToPagedList(page ?? 1, 10));
         }
 
         // GET: Books/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? page)
         {
             if (id == null)
             {
@@ -33,6 +38,28 @@ namespace TMDT.Controllers
             {
                 return HttpNotFound();
             }
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            var products = db.Book.Where(x => x.AuthorID == book.AuthorID && x.BookID != id && x.InStock > 0).ToList().ToPagedList(pageNumber, pageSize); //cùng mã tác giả
+            //Đếm view và lưu vào csdl
+            //var viewCount = db.Book.FirstOrDefault(x => x.BookID == id);
+            //if (viewCount.View == null)
+            //{
+            //    viewCount.View = 0;
+            //    viewCount.View += 1;
+            //}
+            //else
+            //{
+            //    viewCount.View += 1;
+            //}
+            //db.Entry(viewCount).State = System.Data.Entity.EntityState.Modified;
+            //db.SaveChanges();
+
+            ViewData["books"] = products;
+            var review = db.Comments.Where(x => x.BookID == id).ToList();
+            var countReview = db.Comments.Where(x => x.BookID == id).Count();
+            ViewBag.countReview = countReview;
+            ViewBag.review = review;
             return View(book);
         }
 
@@ -171,6 +198,7 @@ namespace TMDT.Controllers
             }
             base.Dispose(disposing);
         }
+
         //public ActionResult PhanTrang(int? page)
         //{
 
@@ -195,5 +223,43 @@ namespace TMDT.Controllers
         //    // 5. Trả về các Link được phân trang theo kích thước và số trang.
         //    return View(links.ToPagedList(pageNumber, pageSize));
         //}
+        public ActionResult Review([Bind(Include = "ID, Comment, UserID, BookID")] Comment review, int proid, string Comment)
+        {
+            //Đếm sản phẩm trong giỏ hàng
+            List<Item> cart = (List<Item>)Session["cart"];
+            if (Session["cart"] == null)
+            {
+                ViewData["countCartProducts"] = 0;
+            }
+            else
+            {   
+                ViewData["countCartProducts"] = cart.Count;
+            }
+            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            review.UserId = user.Id;
+            review.BookID = proid;
+            review.Time = DateTime.Now;
+            review.Content = Comment;
+            db.Comments.Add(review);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Books", new { id = proid });
+
+            /*try
+            {
+
+                var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+                review.UserId = user.Id;
+                review.BookID = proid;
+                review.Time = DateTime.Now;
+                db.Comments.Add(review);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Books", new { id = proid });
+            }
+            catch
+            {
+                return RedirectToAction("Details", "Books", new { id = proid, error = "You have to login to comment this post" });
+            }*/
+        }
+
     }
 }

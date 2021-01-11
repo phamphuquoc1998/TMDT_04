@@ -1,4 +1,4 @@
-namespace TMDT.Migrations
+    namespace TMDT.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

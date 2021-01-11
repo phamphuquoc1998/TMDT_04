@@ -128,13 +128,12 @@ namespace TMDT.Controllers
                 Cart cart = Session["Cart"] as Cart;
                 foreach (var item in cart.Items)
                 {
-
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.OrderID = order.OrderID;
                     orderDetail.BookID = item._shopping_product.BookID;
                     orderDetail.UnitPriceSale = item._shopping_product.BookPrice;
                     orderDetail.Quantity = item._shopping_quantity;
-                    orderDetail.Book.InStock -= item._shopping_quantity;
+                    item._shopping_product.InStock -= item._shopping_quantity;
                     total += item._shopping_quantity * item._shopping_product.BookPrice;
                     db.OrderDetail.Add(orderDetail);
                 }
@@ -145,39 +144,22 @@ namespace TMDT.Controllers
                     case 0:
                         {
                             string nameItem = "";
-
+                            var i = 1;
                             foreach (var item in cart.Items)
                             {
-
                                 nameItem += "<tr>" +
-                                    "<td>" + item._shopping_product.BookName.ToString() + "</td>" +
-                                    "<td>" + item._shopping_quantity.ToString() + "</td>" +
-                                    "<td>" + item._shopping_product.BookPrice.ToString() + "</td>" +
-                                    "</tr>";
+                                                "<td>" + i + "</td>" +
+                                                "<td>" + item._shopping_product.BookName + "</td>" +
+                                                "<td>" + item._shopping_quantity + "</td>" +
+                                                "<td>" + item._shopping_quantity * item._shopping_product.BookPrice + "$</td>" +
+                                            "</tr>";
+                                i++;
 
                             }
-                            string content = "<html>" +
-                               "<body>" +
-                                   "<label class=" + "label - info" + ">Tên khách hàng: " + order.NameRec.ToString() + "</label><br/>" +
-                                   "<label class=" + "label - info" + ">Địa chỉ: " + order.AddressOrder.ToString() + "</label><br/>" +
-                                   "<label class=" + "label - info" + ">Số điện thoại: " + order.PhoneOrder.ToString() + "</label><br/>" +
-                                   "<label class=" + "label - info" + ">Email: " + userName.ToString() + "</label><br/>" +
-                                        "<table class=" + "table table-hover table - bordered table - condensed" + ">" +
-                                             "<thead>" +
-                                                 "<td>Tên</td>" +
-                                                 "<td>Số lượng</td>" +
-                                                 "<td>Đơn giá</td>" +
-                                             "</thead>" +
-                                             "<tbody>" + nameItem.ToString() +
-                                             "<tr><td>" + total.ToString("N0") + "$</td></tr>" +
-                                             "</tbody>" +
-                                       "</table>" +
-                                     "</body>" +
-                               " </html>";
 
                             var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
-                            new MailHelper().SendMail(userName, "Đơn hàng mới từ Shop TMDT04", content);
-                            new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop TMDT04", content);
+                            new MailHelper().SendMail(userName, "Đơn hàng mới từ Shop TMDT04", nameItem, order, total);
+                            new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Shop TMDT04", nameItem, order, total);
                             cart.ClearCart();
                             break;
                         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TMDT.Models;
@@ -88,10 +89,11 @@ namespace TMDT.Controllers
         [HttpGet]
         public ActionResult Detail(string id)
         {
-
+            
             var u = UserManager.FindById(id);
             var model = new UserVM
             {
+                Id = id,
                 Email = u.Email,
                 Password = u.PasswordHash,
                 Phone = u.PhoneNumber,
@@ -100,6 +102,48 @@ namespace TMDT.Controllers
             };
             return View(model);
         }
+        [HttpPost]
+        public async Task<ActionResult> EditUser(string id ,string phone, string address, string sex)
+        {
+            var user = UserManager.FindById(id);
+            user.PhoneNumber = phone;
+            user.Address = address;
+            user.Sex = sex;
+
+             await UserManager.UpdateAsync(user);
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [HttpGet]
+        
+        public ActionResult ChangePassword(string id)
+        {
+          
+            var model = new UserVM
+            {
+                Id = id,
+             
+              
+           
+            };
+            return View(model);
+        }
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+       
+        public async Task<ActionResult> ChangePassword(string id, string newPassword)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var user = UserManager.FindById(id);
+            await UserManager.RemovePasswordAsync(id);
+            await UserManager.AddPasswordAsync(id, newPassword);
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Details";
-  
+
     Layout = "~/Views/Shared/_Layout.cshtml";
- 
+
 }
 <head>
     <meta charset="utf-8">
@@ -16,39 +16,45 @@
 
 
 
-<div style="margin-top:100px" class="row ">
-    <div class="col-md-3">
-        <img class="img-bookDetail" src=@Model.Image.Trim('~') style="width:250px; height:300px" />
+<div style="margin-top:100px; margin-bottom:50px" class="row ">
+    <div class="card">
+        <div class="col-md-3">
+            <img class="img-bookDetail" src=@Model.Image.Trim('~') style="width:250px; height:300px" />
+        </div>
+        <div class="col-6">
+
+            <h1>@Model.BookName</h1>
+            <h2>@String.Format("{0:n0}", Model.BookPrice) ₫</h2>
+            <!-- Form đặt sách sách vào giỏ hàng -->
+
+            <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
+
+                <div class="form-group m-2">
+                    <input type="hidden" name="id" value=@Model.BookID />
+                    <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
+                </div>
+                <div class="btn btn-dark btn-group">
+                    <button class="btn btn-success" type="submit">Mua Ngay</button>
+                </div>
+            </form>
+
+            <hr style="border-bottom: 1px solid #337ab7;" />
+
+            <p>Tên nhà cung cấp : <a href="~/Book/Publisher/@Model.PublisherID" style="text-decoration:none">@Model.Publisher.PublisherName </a></p>
+            <p>Tên tác giả : <a href="~/Book/Author/@Model.AuthorID" style="text-decoration:none"> @Model.Author.AuthorName</a></p>
+
+        </div>
+
+
     </div>
-    <div class="col-6">
 
-        <h1>@Model.BookName</h1>
-        <h2>@String.Format("{0:n0}", Model.BookPrice) ₫</h2>
-        <!-- Form đặt sách sách vào giỏ hàng -->
+</div>
+<h2>Description</h2>
+<hr />
+<div class="col-2" style=" display:inline-block; border:1px dashed #333;background-color:white;">
+    <h6>Tóm tắt nội dung:</h6>
+    <p>@Model.BookDescription</p>
 
-        <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
-
-            <div class="form-group m-2">
-                <input type="hidden" name="id" value=@Model.BookID />
-                <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
-            </div>
-            <div class="btn btn-dark btn-group">
-                <button class="btn btn-success" type="submit">Mua Ngay</button>
-            </div>
-        </form>
-
-        <hr style="border-bottom: 1px solid #337ab7;" />
-       
-        <p>Tên nhà cung cấp : <a href="~/Book/Publisher/@Model.PublisherID" style="text-decoration:none">@Model.Publisher.PublisherName </a></p>
-        <p>Tên tác giả : <a href="~/Book/Author/@Model.AuthorID" style="text-decoration:none"> @Model.Author.AuthorName</a></p>
-
-    </div>
-    <br />
-    <div class="col-2" style=" display:inline-block; border:1px dashed #333;background-color:white;padding:20px; margin:30px 50px">
-        <h6>Tóm tắt nội dung:</h6>
-        <p>@Model.BookDescription</p>
-       
-    </div>
 </div>
 
 @*Comments*@
@@ -68,9 +74,10 @@
                             {
                                 <div class="commant-text row flex-column">
                                     <div class="col-lg-2 col-md-2 col-sm-2">
-                                        <div class="profile"> <img
-                                                                   style="height: 45px; width: 45px; border-radius: 50%; border: 1px orange solid; padding: 3px; margin:0 auto"
-                                                                   class="img-responsive avatar" src="@item.Avatar" alt="#"> </div>
+                                        <div class="profile">
+                                            <img style="height: 45px; width: 45px; border-radius: 50%; border: 1px orange solid; padding: 3px; margin:0 auto"
+                                                 class="img-responsive avatar" src="@item.Avatar" alt="#">
+                                        </div>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8">
                                         <h5>@item.Name</h5>
@@ -80,7 +87,7 @@
                                     </div>
                                 </div>
                             }
-                       
+
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div>
@@ -93,12 +100,12 @@
                                         <div id="collapseExample" class="full collapse commant_box">
                                             <form id="review" accept-charset="UTF-8" action="@Url.Action("Review","Books", new { proid=Model.BookID})" method="post">
                                                 <input id="ratings-hidden" name="rating" type="hidden">
-                                              
+
                                                 <textarea class="form-control animated" cols="50" id="new-review" name="Comment" placeholder="Enter your review here..." required=""></textarea>
 
 
                                                 <div class="full_bt center">
-                                                    <button class="btn sqaure_bt" type="submit">Comment</button> 
+                                                    <button class="btn sqaure_bt" type="submit">Comment</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -112,49 +119,53 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    @foreach (var item in ViewData["books"] as IEnumerable<TMDT.Models.Book>)
-    {
-        if (item.InStock <= 0)
+<h2>On The Shelf</h2>
+<hr style="border-radius: 2px;border: 2px solid black;" />
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in ViewData["books"] as IEnumerable<TMDT.Models.Book>)
         {
-            <div class="col-md-4 col-sm-6 col-xs-12 margin_bottom_30_all" style="display:none">
-                <div class="product_list">
-                    <div class="product_img"><a href="@Url.Action("Detail","Books",new { id=item.BookID})">
-    <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
-</a></div>
-                   
+            if (item.InStock <= 0)
+            {
+                <div class="col-md-4 col-sm-6 col-xs-12 margin_bottom_30_all" style="display:none">
+                    <div class="product_list">
+                        <div class="product_img">
+                            <a href="@Url.Action("Detail","Books",new { id=item.BookID})">
+                                <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                            </a>
+                        </div>
 
-                    <div class="product_detail_btm">
-                        <div class="center">
-                            <h4><a href="it_shop_detail.html">@item.BookName</a></h4>
+
+                        <div class="product_detail_btm">
+                            <div class="center">
+                                <h4><a href="it_shop_detail.html">@item.BookName</a></h4>
+                            </div>
+                            <div class="product_price">
+                                <p><span class="old_price">$15.00</span> – <span class="new_price">@item.BookPrice VND</span></p>
+                            </div>
+                            <div class="button_Section_cont center"> <a class="btn dark_gray_bt" href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})">Thêm Vào Giỏ</a> </div>
                         </div>
-                        <div class="product_price">
-                            <p><span class="old_price">$15.00</span> – <span class="new_price">@item.BookPrice VND</span></p> 
-                        </div>
-                        <div class="button_Section_cont center"> <a class="btn dark_gray_bt" href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})">Thêm Vào Giỏ</a> </div>
                     </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <div class="col-md-4 col-sm-6 col-xs-12 margin_bottom_30_all">
-                <div class="product_list">
-                    <div class="product_img"><a href="@Url.Action("Details","Books",new { id=item.BookID})"><img class="img-responsive card-img" src="@Url.Content(item.Image)" alt="" style="height:200px; width:200px"> </a></div>
-                    <div class="product_detail_btm">
-                        <div class="center">
-                            <h4><a href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})>@item.BookName</a></h4>
+            }
+            else
+            {
+                <div class="col-md-4 col-sm-6 col-xs-12 margin_bottom_30_all">
+                    <div class="product_list">
+                        <div class="product_img"><a href="@Url.Action("Details","Books",new { id=item.BookID})"><img class="img-responsive card-img" src="@Url.Content(item.Image)" alt="" style="height:200px; width:200px"> </a></div>
+                        <div class="product_detail_btm">
+                            <div class="center">
+                                <h4><a href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})>@item.BookName</a></h4>
+                            </div>
+                            <div class="product_price">
+                                <p> <span class="new_price">@item.BookPrice VND</span></p>
+                            </div>
+                            <div class="button_Section_cont center"> <a class="btn dark_gray_bt" href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})"></a> </div>
                         </div>
-                        <div class="product_price">
-                            <p> <span class="new_price">@item.BookPrice VND</span></p>
-                        </div>
-                        <div class="button_Section_cont center"> <a class="btn dark_gray_bt" href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})"></a> </div>
                     </div>
                 </div>
-            </div>
+            }
         }
-    }
-    <br />
-  
+        <br />
+    </div>
 </div>

@@ -133,7 +133,9 @@ else
             <div class="banner_top ">
                 <div class="slideshow-container row" style="margin-left:0px !important">
                     <div class="nav_wrapper col-sm-2 col-md-4 col-lg-4">
-                        <p class="sp_list">Danh mục sản phẩm</p>
+                        <div class="category-heading">
+                            <h3> Browse Categories</h3>
+                        </div>
                         @using (Html.BeginForm("LoadSachTheoDanhMuc", "Books"))
                         {
                             <input hidden="hidden" type="text" name="name" value="Kỹ Năng sống" />
@@ -182,7 +184,9 @@ else
                 </div>
  
                 <div class="container carousel">
-                    <div class="container">
+                    <div class="container" >
+                        <div class="center-block"><h2> News product</h2></div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="carousel slide multi-item-carousel" id="theCarousel">
@@ -226,8 +230,8 @@ else
                                         {
                                             if (item.InStock != 0 || item.InStock > 0)
                                             {
-                                                <div class="item ">
-                                                    <div class="col-xs-4">
+                                                <div class="item">
+                                                    <div class="col-xs-3">
                                                         <div class="book-item">
                                                             <div class="product-block">
                                                                 <div class="left-block">
@@ -276,6 +280,8 @@ else
 
                 </div>
                 <div class="row row_book">
+                    <h2>On The Shelf</h2>
+                    <hr style="border-radius: 2px;border: 2px solid black;"/>
                     @ViewBag.nullBook
                     @foreach (var item in Model)
                     {

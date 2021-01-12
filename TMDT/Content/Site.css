@@ -1040,3 +1040,30 @@ form.search_bar::after {
   border-radius: 5px; }
 
 /*#endregion momo*/
+.container.carousel .product-block {
+  margin: 0 auto; }
+
+.container.carousel .multi-item-carousel .carousel-inner > .item {
+  transition: 500ms ease-in-out left; }
+
+.container.carousel .multi-item-carousel .carousel-inner .active.left {
+  left: -33%; }
+
+.container.carousel .multi-item-carousel .carousel-inner .active.right {
+  left: 33%; }
+
+.container.carousel .multi-item-carousel .carousel-inner .next {
+  left: 33%; }
+
+.container.carousel .multi-item-carousel .carousel-inner .prev {
+  left: -33%; }
+
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .container.carousel .multi-item-carousel .carousel-inner > .item {
+    transition: 500ms ease-in-out left;
+    transition: 500ms ease-in-out all;
+    backface-visibility: visible;
+    transform: none !important; } }
+
+.container.carousel .multi-item-carousel .carouse-control.left, .container.carousel .multi-item-carousel .carouse-control.right {
+  background-image: none; }

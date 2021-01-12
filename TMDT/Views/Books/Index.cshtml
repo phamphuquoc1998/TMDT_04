@@ -178,6 +178,101 @@ else
                         </ul>
                     </div>
                 </div>
+               
+                <div class="container carousel">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="carousel slide multi-item-carousel" id="theCarousel">
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <div class="col-xs-4">
+                                                <div class="book-item">
+                                                    <div class="product-block">
+                                                        <div class="left-block">
+                                                            <a class="product_img_link" target="_blank" href="sa" title="Book">
+                                                                <img class="img-responsive" src="~/Content/Images/book3.jpg" border="0" alt="banner" style="height:250px;width:auto" />
+                                                            </a>
+                                                            <a target="_blank" href="asdsa" class="quick-view btn-tooltip">
+                                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                                            </a>
+                                                            <span class="label-new label">New</span>
+                                                        </div>
+                                                        <div class="right-block">
+                                                            <div class="product-meta">
+                                                                <h5 class="name">
+                                                                    <a target="_blank" href="null" class="product-name">Sống như những đoá hoa</a>
+                                                                </h5>
+                                                                <div class="content_price">
+                                                                    <span class="price product-price">
+                                                                       80,000₫
+                                                                    </span>
+                                                                    <span class="old-price product-price">999,999&#36;</span>
+                                                                    <span class="price-percent-reduction">50%</span>
+                                                                </div>
+                                                                <div class="functional-buttons clearfix">
+
+                                                                    <a target="_parent" href="asdsad" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @foreach (var item in ViewData["latestbooks"] as IEnumerable<TMDT.Models.Book>)
+                                        {
+                                            if (item.InStock != 0 || item.InStock > 0)
+                                            {
+                                                <div class="item ">
+                                                    <div class="col-xs-4">
+                                                        <div class="book-item">
+                                                            <div class="product-block">
+                                                                <div class="left-block">
+                                                                    <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                                                        <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                                                    </a>
+                                                                    <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                                    </a>
+                                                                    <span class="label-new label">New</span>
+                                                                </div>
+                                                                <div class="right-block">
+                                                                    <div class="product-meta">
+                                                                        <h5 class="name">
+                                                                            <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                                                        </h5>
+                                                                        <div class="content_price">
+                                                                            <span class="price product-price">
+                                                                                @item.BookPrice.ToString("N0")₫
+                                                                            </span>
+                                                                            <span class="old-price product-price">999,999&#36;</span>
+                                                                            <span class="price-percent-reduction">50%</span>
+                                                                        </div>
+                                                                        <div class="functional-buttons clearfix">
+
+                                                                            <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
+
+                                        <!--  Example item end -->
+                                    </div>
+                                    <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                                    <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
                 <div class="row row_book">
                     @ViewBag.nullBook
@@ -259,88 +354,38 @@ else
                     }
                     <br />
 
-             
+
 
                 </div>
-                <h1>San pham moi nhat</h1>
-                @foreach (var item in ViewData["latestbooks"] as IEnumerable<TMDT.Models.Book>)
-                {
-                    if (item.InStock != 0 || item.InStock > 0)
-                    {
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="book-item">
-                                <div class="product-block">
-                                    <div class="left-block">
-                                        <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
-                                            <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
-                                        </a>
-                                        <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
-                                            <i class="glyphicon glyphicon-eye-open"></i>
-                                        </a>
-                                        <span class="label-new label">New</span>
-                                    </div>
-                                    <div class="right-block">
-                                        <div class="product-meta">
-                                            <h5 class="name">
-                                                <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
-                                            </h5>
-                                            <div class="content_price">
-                                                <span class="price product-price">
-                                                    @item.BookPrice.ToString("N0")₫
-                                                </span>
-                                                <span class="old-price product-price">999,999&#36;</span>
-                                                <span class="price-percent-reduction">50%</span>
-                                            </div>
-                                            <div class="functional-buttons clearfix">
 
-                                                <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="book-item">
-                                <div class="product-block">
-                                    <div class="left-block">
-                                        <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
-                                            <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
-                                        </a>
-                                        <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
-                                            <i class="glyphicon glyphicon-eye-open"></i>
-                                        </a>
-                                        <span class="label-new label">New</span>
-                                    </div>
-                                    <div class="right-block">
-                                        <div class="product-meta">
-                                            <h5 class="name">
-                                                <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
-                                            </h5>
-                                            <div class="content_price">
-                                                <span class="price product-price">
-                                                    @item.BookPrice.ToString("N0")₫
-                                                </span>
-                                                <span class="old-price product-price">999,999&#36;</span>
-                                                <span class="price-percent-reduction">50%</span>
-                                            </div>
-                                            <div class="functional-buttons clearfix">
 
-                                                <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
             </div>
         </div>
     </div>
+}
+@section scripts{
+    <script>
+        // Instantiate the Bootstrap carousel
+        $('.multi-item-carousel').carousel({
+            interval: false
+        });
+
+        // for every slide in carousel, copy the next slide's item in the slide.
+        // Do the same for the next, next item.
+        $('.multi-item-carousel .item').each(function () {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            if (next.next().length > 0) {
+                next.next().children(':first-child').clone().appendTo($(this));
+            } else {
+                $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+            }
+        });
+    </script>
 }
 
 @Html.PagedListPager(Model, i => Url.Action("Index", "Books", new { i, search = Request.QueryString["search"] }))

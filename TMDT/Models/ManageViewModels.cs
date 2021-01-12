@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TMDT.Models
 {
@@ -10,6 +10,7 @@ namespace TMDT.Models
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
+        public string Address { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
     }
@@ -64,6 +65,13 @@ namespace TMDT.Models
         [Phone]
         [Display(Name = "Phone Number")]
         public string Number { get; set; }
+    }
+    public class ChangeAddressViewModel
+    {
+        [Required]
+
+        [Display(Name = "Address")]
+        public string Address { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel

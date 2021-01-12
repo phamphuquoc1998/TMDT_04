@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using TMDT.Models;
 
 namespace TMDT.Controllers
@@ -14,7 +13,7 @@ namespace TMDT.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -34,9 +33,9 @@ namespace TMDT.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -66,10 +65,12 @@ namespace TMDT.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var u = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                Address = u.Address,
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
@@ -108,7 +109,30 @@ namespace TMDT.Controllers
             return View();
         }
 
-        //
+        ////
+        //// POST: /Manage/AddPhoneNumber
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    // Generate the token and send it
+        //    var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+        //    if (UserManager.SmsService != null)
+        //    {
+        //        var message = new IdentityMessage
+        //        {
+        //            Destination = model.Number,
+        //            Body = "Your security code is: " + code
+        //        };
+        //        await UserManager.SmsService.SendAsync(message);
+        //    }
+        //    return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+        //}
+
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,17 +143,29 @@ namespace TMDT.Controllers
                 return View(model);
             }
             // Generate the token and send it
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
+
+            UserManager.SetPhoneNumber(User.Identity.GetUserId(), model.Number);
+            return RedirectToAction("Index", "Manage");
+        }
+
+        public ActionResult ChangeAddress()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeAddress(ChangeAddressViewModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
+                return View(model);
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+            // Generate the token and send it
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.Address = model.Address;
+            await UserManager.UpdateAsync(user);
+            return RedirectToAction("Index", "Manage");
         }
 
         //
@@ -325,21 +361,21 @@ namespace TMDT.Controllers
         }
 
         [HttpPost]
-      
+
         public ActionResult EditAvatar(HttpPostedFileBase ImageUpload)
-        {               
+        {
             var user = UserManager.FindById(User.Identity.GetUserId());
             string fileNameImg = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
             string extension = Path.GetExtension(ImageUpload.FileName);
-            fileNameImg = fileNameImg + extension;        
+            fileNameImg = fileNameImg + extension;
             if (user != null && ImageUpload != null && ImageUpload.ContentLength > 0)
             {
-               // string filePath = Path.Combine(Server.MapPath("~/Content/Images/"), Path.GetFileName(ImageUpload.FileName));
+                // string filePath = Path.Combine(Server.MapPath("~/Content/Images/"), Path.GetFileName(ImageUpload.FileName));
                 user.Image = "~/Content/Images/" + fileNameImg;
-                ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));                               
+                ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/Images/"), fileNameImg));
                 UserManager.Update(user);
             }
-                
+
             return RedirectToAction("Index", "Manage");
         }
 
@@ -355,7 +391,7 @@ namespace TMDT.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -406,6 +442,6 @@ namespace TMDT.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

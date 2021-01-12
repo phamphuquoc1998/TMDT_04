@@ -15,37 +15,39 @@
 </head>
 
 
-<h3 style="margin-left:25px"> Thông tin chi tiết sách</h3>
-<div class="row m-3">
-    <div class="col-3">
-        <img src=@Model.Image.Trim('~') style="width:200px" />
+
+<div style="margin-top:100px" class="row ">
+    <div class="col-md-3">
+        <img class="img-bookDetail" src=@Model.Image.Trim('~') style="width:250px; height:300px" />
     </div>
     <div class="col-6">
 
-        <h2>@Model.BookName</h2>
-        <h4>@String.Format("{0:n0}", Model.BookPrice) ₫</h4>
+        <h1>@Model.BookName</h1>
+        <h2>@String.Format("{0:n0}", Model.BookPrice) ₫</h2>
         <!-- Form đặt sách sách vào giỏ hàng -->
-        <hr style="border-bottom: 1px solid #337ab7;" />
-      <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
-                <h4 class="mt-1">Số lượng</h4>
-                <div class="form-group m-2">
-                    <input type="hidden" name="id" value=@Model.BookID />
-                    <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
-                </div>
-                <div class="btn btn-dark btn-group">
-                   <button type="submit" >Mua Ngay</button>
-                </div>
-            </form>
+
+        <form action="~/ShoppingCart/AddToCart" class="form-inline" method="post">
+
+            <div class="form-group m-2">
+                <input type="hidden" name="id" value=@Model.BookID />
+                <input type="number" class="form-control" value=1 name="quantity" style="width: 80px" min="1" max=@Model.InStock>
+            </div>
+            <div class="btn btn-dark btn-group">
+                <button class="btn btn-success" type="submit">Mua Ngay</button>
+            </div>
+        </form>
 
         <hr style="border-bottom: 1px solid #337ab7;" />
-        <h6>Tóm tắt nội dung:</h6>
-        <p>@Model.BookDescription</p>
-
-    </div>
-    <div class="col-2" style=" border:1px double #333;background-color:white">
-        <h4 style="border-bottom:double">Các thông tin thêm</h4>
+       
         <p>Tên nhà cung cấp : <a href="~/Book/Publisher/@Model.PublisherID" style="text-decoration:none">@Model.Publisher.PublisherName </a></p>
         <p>Tên tác giả : <a href="~/Book/Author/@Model.AuthorID" style="text-decoration:none"> @Model.Author.AuthorName</a></p>
+
+    </div>
+    <br />
+    <div class="col-2" style="display:inline-block; border:1px dashed #333;background-color:white;padding:20px; margin-top:30px">
+        <h6>Tóm tắt nội dung:</h6>
+        <p>@Model.BookDescription</p>
+       
     </div>
 </div>
 
@@ -145,20 +147,14 @@
                             <h4><a href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})>@item.BookName</a></h4>
                         </div>
                         <div class="product_price">
-                            <p><span class="old_price">$15.00</span> – <span class="new_price">@item.BookPrice VND</span></p>
+                            <p> <span class="new_price">@item.BookPrice VND</span></p>
                         </div>
-                        <div class="button_Section_cont center"> <a class="btn dark_gray_bt" href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})">Thêm Vào Giỏ</a> </div>
+                        <div class="button_Section_cont center"> <a class="btn dark_gray_bt" href="@Url.Action("AddToCart","ShoppingCart",new { id=item.BookID})"></a> </div>
                     </div>
                 </div>
             </div>
         }
     }
     <br />
-    @*<div class="center col-md-12 col-sm-6 col-xs-12 margin_bottom_30_all">
-        @foreach (var item in ViewData["products"] as PagedList.IPagedList<TMDT.Models.Book>)
-        {
-            @Html.PagedListPager(ViewData["products"] as PagedList.IPagedList<TMDT.Models.Book.Product>, page => Url.Action("Detail", "Home", new { id = Model.ProductID, page }))
-            break;
-        }
-    </div>*@
+  
 </div>

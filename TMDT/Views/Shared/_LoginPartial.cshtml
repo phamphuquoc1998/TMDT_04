@@ -14,14 +14,17 @@
                                 <img alt="ava" class="dropBtn" style="border-radius:50%" src=@Html.Action("Index", "ShowImgCurrentUser") />
                                
                                 <div class="dropdown-content">
-                                    <div class="list-group-item-text">
+                                    @if (User.IsInRole("User"))
+                                    {
+                                     <div class="list-group-item-text">
                                         @Html.ActionLink("Quản lý tài khoản", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Quản lý tài khoản" })
                                     </div>
                                     <hr />
                                     <div class="list-group-item-text">
                                         <a target="_parent" href="/Orders/ListOrderOfUser">Quản lý đơn hàng</a>
                                     </div>
-                                    <hr />
+                                   
+                                    <hr /> }
                                     <div class="list-group-item-text">
                                         <a href="javascript:document.getElementById('logoutForm').submit()">Log off &nbsp;<span class="glyphicon glyphicon-log-out"></span></a>
                                     </div>

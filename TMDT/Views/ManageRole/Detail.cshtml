@@ -1,0 +1,26 @@
+﻿@model TMDT.Models.ViewModel.UserVM
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<form>
+
+    <table class="table table-bordered">
+        <tr>
+            <td>Email</td>
+            <td>pass</td>
+            <td>address</td>
+            <td>phone</td>
+            <td>sex</td>
+        </tr>
+
+        <tr>
+
+            <td>@Model.Email</td>
+            <td>@Model.Password</td>
+            <td>@Model.Address</td>
+            <td>@Model.Phone</td>
+            <td>@Model.Sex</td>
+        </tr>
+    </table>
+</form>

@@ -232,7 +232,7 @@
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Publisher.cs" />
-    <Compile Include="Models\ViewModel\UserAddressPhoneVM.cs" />
+    <Compile Include="Models\ViewModel\UserVM.cs" />
     <Compile Include="Models\ViewModel\UserImageVM.cs" />
     <Compile Include="Models\ViewModel\UserInRoleViewModel.cs" />
     <Compile Include="Models\Voucher.cs" />
@@ -396,6 +396,7 @@
     <Content Include="Views\Orders\ReturnUrl.cshtml" />
     <Content Include="Views\Price\Index.cshtml" />
     <Content Include="Views\Manage\ChangeAddress.cshtml" />
+    <Content Include="Views\ManageRole\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

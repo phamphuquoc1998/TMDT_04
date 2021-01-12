@@ -35,22 +35,23 @@
                 </td>  @using (Html.BeginForm("Edit", "ManageRole", FormMethod.Post))
                 {
 
-                    <td>
+            <td style="display:flex">
 
-                        <input hidden="hidden" value=@user.UserId name="userId" id="userId" />
-                        <select class="form-control form-group-sm" name="roleName" id="roleName">
-                            @foreach (var item in ViewBag.Roles)
-                            {
-                                <option value=@item.Name>@item.Name</option>
-                            }
-                        </select>
-                       
-                       
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-primary">Sửa</button>
+                <input hidden="hidden" value=@user.UserId name="userId" id="userId" />
+                <select class="form-control form-group-sm" name="roleName" id="roleName">
+                    @foreach (var item in ViewBag.Roles)
+                    {
+                        <option value=@item.Name>@item.Name</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-primary">Sửa</button>
 
-                    </td> }
+            </td>
+            <td>
+             
+                @Html.ActionLink("Detail", "Detail", new { id = user.UserId })
+            </td> 
+                    }
                 </tr>
 
                 }

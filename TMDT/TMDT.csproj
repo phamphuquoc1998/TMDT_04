@@ -216,6 +216,10 @@
     <Compile Include="Migrations\202101111652430_edit_comment.Designer.cs">
       <DependentUpon>202101111652430_edit_comment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101121227156__chang.cs" />
+    <Compile Include="Migrations\202101121227156__chang.Designer.cs">
+      <DependentUpon>202101121227156__chang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -420,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101111652430_edit_comment.resx">
       <DependentUpon>202101111652430_edit_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121227156__chang.resx">
+      <DependentUpon>202101121227156__chang.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -101,13 +101,15 @@
     <link href="~/Content/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-
-    @Styles.Render("~/Content/LayoutAdminStyles")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Library/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="~/Library/font-awesome-4.7.0/css/font-awesome.css"/>
+    <link rel="stylesheet"href="~/Content/AQK.css" />
+          @Styles.Render("~/Content/LayoutAdminStyles")
+          @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">@User.Identity.Name</a>
+        <a class="navbar-brand" href="#" >@User.Identity.Name</a>
 
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 
@@ -128,27 +130,33 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading" style="font-size:20px;pointer-events: none; cursor:default">Core Feture</div>
                         <a class="nav-link" href="/Books">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                             Books
                         </a>
                         <a class="nav-link" href="/Categories">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                             Categories
                         </a>
                         <a class="nav-link" href="/Authors">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Authors
                         </a>
                         <a class="nav-link" href="/Providers">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-truck-loading"></i></div>
                             Providers
                         </a>
                         <a class="nav-link" href="/Publishers">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-city"></i></div>
                             Publishers
                         </a>
+                        <a class="nav-link" href="/Orders">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Order
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading" style="font-size:20px">Managing</div>
                         <a class="nav-link" href="/ManageRole">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             ManageRole
@@ -156,20 +164,6 @@
                         <a class="nav-link" href="/role">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             role
-                        </a>
-                        <a class="nav-link" href="/Orders">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Order
-                        </a>
-
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
                         </a>
                     </div>
                 </div>
@@ -245,7 +239,17 @@
                         </div>
                     </div>
                 </div>
-                @RenderBody()
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        DataTable
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" style="width:inherit">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">

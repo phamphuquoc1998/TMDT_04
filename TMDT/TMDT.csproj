@@ -236,6 +236,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AQK.css" />
     <Content Include="Content\assets\demo\chart-area-demo.js" />
     <Content Include="Content\assets\demo\chart-bar-demo.js" />
     <Content Include="Content\assets\demo\chart-pie-demo.js" />

@@ -52,14 +52,14 @@
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit","Books",new { id = item.OrderID })" class="btn">
+                        <a href="@Url.Action("Edit","Orders",new { id = item.OrderID })" class="btn">
                             <i class="far fa-edit fa-2x" style="color:#FFDAC1"></i>
                         </a>
-                        <a href="@Url.Action("Details","Books",new { id = item.OrderID })" class="btn">
+                        <a href="@Url.Action("Details","Orders",new { id = item.OrderID })" class="btn">
                             <i class="fa fa-sticky-note fa-2x" style="color:#83d9dc" aria-hidden="true"></i>
 
                         </a>
-                        <a href="@Url.Action("Delete","Books",new { id = item.OrderID })" class="btn">
+                        <a href="@Url.Action("Delete","Orders",new { id = item.OrderID })" class="btn">
                             <i class="fa fa-trash fa-2x" style="color:#FF9AA2" aria-hidden="true"></i>
                         </a>
                     </td>

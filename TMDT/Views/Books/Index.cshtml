@@ -222,7 +222,10 @@ else
                                                 </div>
                                             </div>
                                         </div>
-                                        @foreach (var item in ViewData["latestbooks"] as IEnumerable<TMDT.Models.Book>)
+                                        @if (ViewData["latestbooks"] !=null)
+                                        {
+
+                                       foreach (var item in ViewData["latestbooks"] as IEnumerable<TMDT.Models.Book>)
                                         {
                                             if (item.InStock != 0 || item.InStock > 0)
                                             {
@@ -264,6 +267,7 @@ else
                                             }
                                         }
 
+                                        }
 
                                         <!--  Example item end -->
                                     </div>
@@ -291,7 +295,7 @@ else
                                             <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
-                                            <span class="label-new label">New</span>
+                                            @*<span class="label-new label">New</span>*@
                                         </div>
                                         <div class="right-block">
                                             <div class="product-meta">

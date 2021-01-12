@@ -165,27 +165,27 @@ namespace TMDT.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult SearchTenSach(string tenSach)
+        public ActionResult SearchTenSach(string tenSach, int? page)
         {
             var tenSachs = from m in db.Book select m;
 
             if (!String.IsNullOrEmpty(tenSach))
             {
-                tenSachs = tenSachs.Where(s => s.BookName.Contains(tenSach));
+                tenSachs = tenSachs.Where(s => s.BookName.Contains(tenSach)).OrderBy(x => x.BookName);
             }
             else
             {
                 return RedirectToAction("Index", "Books");
             }
 
-            return View("Index", tenSachs);
+            return View("Index", tenSachs.ToList().ToPagedList(page ?? 1, 10));
 
         }
-        public ActionResult LoadSachTheoDanhMuc(string name)
+        public ActionResult LoadSachTheoDanhMuc(string name, int? page)
         {
             var ten_loai = name;
-            var tenDanhMuc = db.Book.Where(m => m.Category.CateName == ten_loai);
-            return View("Index", tenDanhMuc.ToList());
+            var tenDanhMuc = db.Book.Where(m => m.Category.CateName == ten_loai).OrderBy(x => x.BookName);
+            return View("Index", tenDanhMuc.ToList().ToPagedList(page ?? 1, 10));
 
         }
         protected override void Dispose(bool disposing)

@@ -18,7 +18,7 @@ namespace TMDT.Controllers
         {
 
             var book = db.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.Provider).Include(b => b.Publisher);
-            return View(book.ToList().ToPagedList(i ?? 1, 3));
+            return View(book.ToList().ToPagedList(i ?? 1, 10));
         }
 
         // GET: Books/Details/5

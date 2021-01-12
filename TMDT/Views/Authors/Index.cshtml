@@ -6,28 +6,37 @@
 }
 
 
-<button class="btn btn-sm btn-warning">
+<button class="btn btn-sm btn-warning" style="margin-bottom:10px">
     @Html.ActionLink("Create New", "Create")
 </button>
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AuthorName)
-        </th>
-        <th>Công cụ</th>
-    </tr>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorName)
+            </th>
+            <th>Công cụ</th>
+        </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Books",new { id = item.AuthorID })" class="btn">
+                        <i class="far fa-edit fa-2x" style="color:#FFDAC1"></i>
+                    </a>
+                    <a href="@Url.Action("Details","Books",new { id = item.AuthorID })" class="btn">
+                        <i class="fa fa-sticky-note fa-2x" style="color:#83d9dc" aria-hidden="true"></i>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AuthorName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AuthorID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AuthorID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AuthorID })
-        </td>
-    </tr>
-}
+                    </a>
+                    <a href="@Url.Action("Delete","Books",new { id = item.AuthorID })" class="btn">
+                        <i class="fa fa-trash fa-2x" style="color:#FF9AA2" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        }
 
 </table>

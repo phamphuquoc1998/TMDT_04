@@ -1,6 +1,7 @@
 ﻿
 @model IPagedList<TMDT.Models.Book>
 
+
 @using TMDT.Models
 @using PagedList;
 @using PagedList.Mvc;
@@ -17,112 +18,113 @@
 
 @if (User.IsInRole("ADMIN") == true)
 {
-
-    <button class="btn btn-success btn-sm">
-        @Html.ActionLink("Create New", "Create")
-    </button>
-
-    <input class="form-control" id="myInput" type="text" placeholder="Search..">
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table mr-1"></i>
-            DataTable Example
+    <div class="row" style="margin-left:0px">
+        <div class="col-4" style="float:right">
+            <button class="btn btn-success btn-sm" style="margin-bottom:10px">
+                @Html.ActionLink("Create New", "Create")
+            </button>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().Author.AuthorName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().Category.CateName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().Provider.ProviderName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().Publisher.PublisherName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().BookName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().InStock)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().BookPrice)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().BookDescription)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().PublisherDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().Image)
-                            </th>
-                        </tr>
-                    </thead>
+        <div class="col-4"></div>
+    </div>
+    <table class="table table-bordered" id="dataTable" width="100%" height="100%" cellspacing="2" style="align-content:center;justify-content:center">
+        <thead class="thead-dark">
+            <tr>
+                <th style="align-items:center">
+                    @Html.DisplayNameFor(model => model.First().Author.AuthorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Category.CateName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Provider.ProviderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Publisher.PublisherName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().BookName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().InStock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().BookPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().BookDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().PublisherDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Image)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
-                    <tbody id="myTable">
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Author.AuthorName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Category.CateName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Provider.ProviderName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
-                                </td>
-                                <td>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.Author.AuthorName)
 
-                                    @Html.DisplayFor(modelItem => item.BookName)
-                                </td>
-                                <td>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CateName)
+                    </td>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.Provider.ProviderName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
+                    </td>
+                    <td>
 
-                                    @Html.DisplayFor(modelItem => item.InStock)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BookPrice)
-                                </td>
-                                <td style=" -webkit-line-clamp: 4;
+                        @Html.DisplayFor(modelItem => item.BookName)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.InStock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookPrice)
+                    </td>
+                    <td style=" -webkit-line-clamp: 3;
                             line-height:18px;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             display: -webkit-box;
                             padding:0;
+                            width:200px;
                             text-overflow:ellipsis;
                             ">
-                                    " >
-                                    @Html.DisplayFor(modelItem => item.BookDescription)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PublisherDate)
-                                </td>
-                                <td>
-                                    <img src="@Url.Content(item.Image)" style="height:40px ;width:40px;" />
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                        " >
+                        @Html.DisplayFor(modelItem => item.BookDescription)
+                    </td>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.PublisherDate)
+                    </td>
+                    <td>
+                        <img src="@Url.Content(item.Image)" style="height:40px ;width:40px;" />
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit","Books",new { id = item.BookID })" class="btn">
+                            <i class="far fa-edit fa-2x" style="        color: #F0AF83"></i>
+                        </a>
+                        <a href="@Url.Action("Details","Books",new { id = item.BookID })" class="btn">
+                            <i class="fa fa-sticky-note fa-2x" style="color:#83d9dc" aria-hidden="true"></i>
 
+                        </a>
+                        <a href="@Url.Action("Delete","Books",new { id = item.BookID })" class="btn">
+                            <i class="fa fa-trash fa-2x" style="color:#FF9AA2" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
@@ -225,5 +227,6 @@ else
                 </div>
             </div>
         </div>
-    </div>}
-@Html.PagedListPager(Model, i => Url.Action("Index", "Books", new { i, search = Request.QueryString["search"] }))
+    </div>
+    @Html.PagedListPager(Model, i => Url.Action("Index", "Books", new { i, search = Request.QueryString["search"] }))}
+

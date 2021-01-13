@@ -6,7 +6,7 @@ using TMDT.Models;
 
 namespace TMDT.Controllers
 {
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMIN")]
     public class RoleController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();

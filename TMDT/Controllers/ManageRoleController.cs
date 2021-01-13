@@ -9,7 +9,8 @@ using TMDT.Models.ViewModel;
 
 namespace TMDT.Controllers
 {
-    [Authorize(Roles = "ADMIN")]
+  
+    [AccessDeniedAuthorize(Roles = "ADMIN")]
     public class ManageRoleController : Controller
     {
         private static ApplicationDbContext context = new ApplicationDbContext();

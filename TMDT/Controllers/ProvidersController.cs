@@ -10,6 +10,7 @@ using TMDT.Models;
 
 namespace TMDT.Controllers
 {
+    [AccessDeniedAuthorize(Roles = "NV_KHO")]
     public class ProvidersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
